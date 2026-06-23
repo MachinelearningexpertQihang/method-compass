@@ -27,14 +27,14 @@
   body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;background-image:radial-gradient(1px 1px at 12% 18%, rgba(236,228,210,.7), transparent),radial-gradient(1px 1px at 78% 12%, rgba(236,228,210,.5), transparent),radial-gradient(1px 1px at 34% 64%, rgba(236,228,210,.4), transparent),radial-gradient(1px 1px at 62% 78%, rgba(236,228,210,.5), transparent),radial-gradient(1px 1px at 88% 52%, rgba(236,228,210,.4), transparent),radial-gradient(1.4px 1.4px at 22% 88%, rgba(230,200,121,.6), transparent),radial-gradient(1.4px 1.4px at 91% 84%, rgba(230,200,121,.5), transparent);}
   .sheet{max-width:1180px;margin:0 auto;padding:34px 24px 76px;position:relative;z-index:1;}
   .rose{position:absolute;top:-46px;right:-70px;width:340px;height:340px;opacity:.16;pointer-events:none;z-index:0;}
-
+ 
   .crown{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ivory-faint);margin-bottom:20px;flex-wrap:wrap;gap:8px;}
   .crown .mid{display:flex;align-items:center;gap:8px;}
   .crown .mid .star{color:var(--gold);}
   .crown b{color:var(--gold);}
   .hr-gold{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4;margin-bottom:30px;}
-
-  header{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:center;margin-bottom:34px;position:relative;}
+ 
+  header{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;margin-bottom:34px;position:relative;}
   .brand{display:flex;align-items:center;gap:18px;}
   .astro{width:60px;height:60px;flex:none;position:relative;display:grid;place-items:center;border-radius:50%;border:1px solid var(--gold);background:radial-gradient(circle at 38% 32%, rgba(230,200,121,.18), transparent 60%);box-shadow:0 0 24px rgba(203,164,88,.18),inset 0 0 14px rgba(203,164,88,.10);}
   .astro::before{content:"";position:absolute;inset:6px;border-radius:50%;border:1px solid var(--line);}
@@ -45,11 +45,11 @@
   .titles .sub{font-family:var(--mono);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--verd);margin-top:9px;}
   .tagline{max-width:320px;font-family:var(--display);font-weight:400;font-style:italic;font-size:1rem;color:var(--ivory-soft);line-height:1.55;text-align:right;}
   .tagline b{color:var(--ivory);font-style:normal;font-weight:600;}
-
-  .console{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start;}
+ 
+  .console{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:start;}
   @media(max-width:880px){.console{grid-template-columns:1fr;}}
   .panel{background:linear-gradient(160deg,var(--night-3),var(--night-2));border:1px solid var(--line);border-radius:8px;box-shadow:0 18px 40px -22px rgba(0,0,0,.8),inset 0 1px 0 rgba(236,228,210,.04);}
-
+ 
   .picker{padding:22px 20px;}
   .pgroup{margin-bottom:20px;}
   .pgroup:last-of-type{margin-bottom:14px;}
@@ -63,15 +63,15 @@
   .chip.on{background:linear-gradient(180deg,rgba(203,164,88,.22),rgba(203,164,88,.10));border-color:var(--gold);color:var(--gold-bright);box-shadow:0 0 14px rgba(203,164,88,.18);}
   .reset{margin-top:4px;font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;color:var(--ivory-faint);background:none;border:none;cursor:pointer;padding:2px 0;text-transform:uppercase;}
   .reset:hover{color:var(--gold);}
-
+ 
   .stagewrap{padding:22px 22px 18px;}
   .eyebrow{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ivory-faint);margin-bottom:15px;display:flex;align-items:center;gap:8px;}
   .eyebrow::after{content:"";flex:1;height:1px;background:var(--line-soft);}
   .route{display:flex;align-items:stretch;overflow-x:auto;padding-bottom:6px;}
-  .node{flex:0 0 auto;min-width:88px;display:flex;flex-direction:column;gap:6px;position:relative;padding:0 6px;}
+  .node{flex:1;min-width:104px;display:flex;flex-direction:column;gap:7px;position:relative;padding:0 5px;}
   .ncap{font-family:var(--mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ivory-faint);}
-  .nbox{border:1px solid var(--line);background:rgba(10,20,23,.5);padding:8px 10px;min-height:54px;display:flex;flex-direction:column;justify-content:center;gap:3px;border-radius:7px;transition:all .18s ease;}
-  .nval{font-family:var(--display);font-weight:600;font-size:.82rem;line-height:1.12;color:var(--ivory-soft);}
+  .nbox{border:1px solid var(--line);background:rgba(10,20,23,.5);padding:10px 11px;min-height:58px;display:flex;flex-direction:column;justify-content:center;gap:3px;border-radius:7px;transition:all .3s ease;}
+  .nval{font-family:var(--display);font-weight:600;font-size:.88rem;line-height:1.16;color:var(--ivory-soft);}
   .nval.empty{color:var(--ivory-faint);font-weight:400;font-size:.76rem;font-family:var(--body);font-style:italic;}
   .nmeta{font-family:var(--mono);font-size:.56rem;color:var(--ivory-faint);letter-spacing:.03em;}
   .node.lit .nbox{border-color:var(--verd);background:rgba(115,185,169,.09);box-shadow:0 0 16px -2px rgba(115,185,169,.25);}
@@ -85,7 +85,7 @@
   .stagefoot{font-family:var(--body);font-size:.78rem;color:var(--ivory-soft);margin-top:15px;padding-top:13px;border-top:1px dashed var(--line);}
   .stagefoot.idle{color:var(--ivory-faint);font-style:italic;}
   .stagefoot b{color:var(--verd);font-weight:600;}
-
+ 
   .rec{margin-top:20px;overflow:hidden;}
   .rec-empty{padding:54px 26px;text-align:center;color:var(--ivory-soft);}
   .rec-empty .big{font-family:var(--display);font-weight:600;font-size:1.15rem;color:var(--ivory);margin-bottom:7px;}
@@ -97,7 +97,7 @@
   .recname .alt{display:block;font-family:var(--mono);font-size:.74rem;font-weight:400;color:var(--ivory-soft);margin-top:9px;letter-spacing:.01em;text-shadow:none;}
   .recwhy{padding:18px 26px 6px;font-size:.91rem;color:var(--ivory);line-height:1.65;}
   .recwhy b{color:var(--verd);font-weight:600;}
-
+ 
   /* ranked list */
   .ranked{padding:14px 26px 6px;}
   .ranked .rk-h{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
@@ -118,7 +118,7 @@
   .fit .track{width:80px;height:5px;background:rgba(236,228,210,.10);border-radius:3px;overflow:hidden;}
   .fit .fill{height:100%;background:var(--verd);border-radius:3px;}
   .rrow.top .fit .fill{background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright));box-shadow:0 0 8px rgba(203,164,88,.5);}
-
+ 
   /* pipeline */
   .pipe-wrap{padding:6px 26px 4px;}
   .pipe{display:flex;gap:0;overflow-x:auto;border-top:1px solid var(--line-soft);padding-top:16px;margin-top:10px;}
@@ -128,7 +128,7 @@
   .stage .st-t{font-family:var(--display);font-weight:600;font-size:.84rem;color:var(--ivory);margin-bottom:3px;}
   .stage .st-d{font-size:.72rem;color:var(--ivory-soft);line-height:1.4;}
   .stage:not(:last-child)::after{content:"→";position:absolute;top:-2px;right:2px;color:var(--ivory-faint);font-size:.8rem;}
-
+ 
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:18px;}
   @media(max-width:700px){.grid3{grid-template-columns:1fr;}}
   .cell{background:var(--night-2);padding:17px 20px;}
@@ -145,37 +145,17 @@
   .cell .metric b{color:var(--verd);font-weight:600;}
   .escalate{font-size:.84rem;color:var(--ivory);line-height:1.65;}
   .escalate b{color:var(--amethyst);font-weight:600;}
-
+ 
   .reasoning{padding:18px 26px 22px;border-top:1px solid var(--line);font-size:.86rem;color:var(--ivory);line-height:1.7;background:radial-gradient(ellipse 70% 100% at 100% 100%,rgba(115,185,169,.06),transparent 70%);}
   .reasoning .rk{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:9px;}
   .reasoning b{color:var(--verd);font-weight:600;}
-
+ 
   footer{margin-top:34px;font-family:var(--mono);font-size:.66rem;color:var(--ivory-faint);text-align:center;line-height:2;letter-spacing:.06em;}
   footer b{color:var(--gold);}
   footer .div{color:var(--verd);margin:0 6px;}
-
-  /* Correlation matrix heatmap */
-  .corr-panel{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;}
-  .corr-title{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
-  .corr-heatmap{overflow-x:auto;border:1px solid var(--line-soft);border-radius:6px;background:var(--night-3);}
-  .corr-heatmap table{border-collapse:collapse;font-size:.7rem;}
-  .corr-heatmap th,.corr-heatmap td{padding:4px 6px;text-align:center;color:var(--ivory-soft);}
-  .corr-heatmap th{background:var(--night-4);font-family:var(--mono);color:var(--gold-bright);border:1px solid var(--line-soft);max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .corr-heatmap td{border:1px solid var(--line-soft);}
-  .corr-cell{display:inline-flex;align-items:center;justify-content:center;width:35px;height:28px;border-radius:3px;font-size:.58rem;font-weight:600;color:#000;}
-
-  /* Anomaly detection report */
-  .anom-panel{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;}
-  .anom-title{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
-  .anom-list{font-size:.76rem;color:var(--ivory);line-height:1.6;max-height:200px;overflow-y:auto;}
-  .anom-item{padding:6px 0;border-bottom:1px solid var(--line-soft);display:flex;gap:12px;align-items:flex-start;}
-  .anom-item:last-child{border-bottom:none;}
-  .anom-item .badge{flex:none;padding:2px 6px;background:var(--gold);color:var(--night);font-family:var(--mono);font-size:.56rem;border-radius:3px;font-weight:600;}
-  .anom-item .badge.out{background:#E08A6A;}
-  .anom-item .desc{flex:1;color:var(--ivory-soft);}
   /* ---- data layer (DuckDB) ---- */
-  .datapanel{padding:18px 18px;margin-bottom:18px;display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start;}
-  .drop{border:1.5px dashed var(--line);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:all .12s;background:rgba(236,228,210,.02);width:100%;}
+  .datapanel{padding:20px 22px;margin-bottom:20px;}
+  .drop{border:1.5px dashed var(--line);border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:all .18s;background:rgba(236,228,210,.02);}
   .drop:hover,.drop.over{border-color:var(--verd);background:rgba(115,185,169,.07);}
   .drop-inner{font-size:.86rem;color:var(--ivory-soft);}
   .drop-inner .arr{color:var(--gold);font-size:1.1rem;margin-right:6px;}
@@ -190,34 +170,27 @@
   .stat .k{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ivory-faint);}
   .stat .v{font-family:var(--display);font-weight:600;font-size:1.3rem;color:var(--gold-bright);}
   .stat select{font-family:var(--body);font-size:.84rem;color:var(--ivory);background:var(--night-3);border:1px solid var(--line);border-radius:5px;padding:6px 8px;min-width:170px;}
-  .prof-table{max-height:182px;overflow:auto;border:1px solid var(--line-soft);border-radius:6px;}
-  .prof-table table{width:100%;border-collapse:collapse;font-size:.76rem;}
-  .prof-table table{table-layout:fixed;}
-  .prof-table th:nth-child(1){width:36%;}
-  .prof-table th:nth-child(2){width:10%;}
-  .prof-table th:nth-child(3){width:10%;}
-  .prof-table th:nth-child(4){width:10%;}
-  .prof-table th:nth-child(5){width:10%;}
-  .prof-table th:nth-child(6){width:8%;}
-  .prof-table th:nth-child(7){width:8%;}
-  .prof-table th:nth-child(8){width:8%;}
-  .prof-table th{position:sticky;top:0;background:var(--night-3);font-family:var(--mono);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ivory-faint);text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);}
-  .prof-table td{padding:6px 10px;border-bottom:1px solid var(--line-soft);color:var(--ivory);}
-  .prof-table td.num{font-family:var(--mono);font-size:.72rem;color:var(--ivory-soft);text-align:right;}
+  .prof-table{max-height:236px;overflow:auto;border:1px solid var(--line-soft);border-radius:6px;}
+  .prof-table table{border-collapse:collapse;font-size:.74rem;min-width:100%;}
+  .prof-table th,.prof-table td{padding:6px 11px;white-space:nowrap;border-bottom:1px solid var(--line-soft);}
+  .prof-table th{position:sticky;top:0;z-index:2;background:var(--night-3);font-family:var(--mono);font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ivory-faint);text-align:left;border-bottom:1px solid var(--line);}
+  .prof-table td{color:var(--ivory);}
+  .prof-table th.r,.prof-table td.r{text-align:right;}
+  .prof-table td.num{font-family:var(--mono);font-size:.71rem;color:var(--ivory-soft);}
+  .prof-table td.ty{font-family:var(--mono);font-size:.66rem;color:var(--verd);}
+  .prof-table .c-name{position:sticky;left:0;background:var(--night-3);color:var(--ivory);z-index:1;}
+  .prof-table th.c-name{z-index:3;}
   .prof-table tr:last-child td{border-bottom:none;}
   .prof-map{margin-top:12px;font-size:.82rem;color:var(--ivory);background:rgba(115,185,169,.06);border:1px solid var(--line-soft);border-radius:6px;padding:11px 14px;line-height:1.65;}
   .prof-map b{color:var(--verd);font-weight:600;}
   .prof-map .ico{color:var(--gold);}
-
-  /* align numeric columns to the right (from 3rd column onward) */
-  .prof-table th:nth-child(n+3), .prof-table td:nth-child(n+3){text-align:right;}
-
+ 
   /* data-signal warnings */
   .warns{padding:8px 26px 2px;}
   .warn{border-left:3px solid var(--gold);background:rgba(242,180,65,.08);padding:9px 13px;margin-bottom:8px;border-radius:0 6px 6px 0;font-size:.82rem;color:var(--ivory);line-height:1.55;}
   .warn b{color:var(--gold-bright);font-weight:600;}
   .warn .wt{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;color:var(--gold-bright);margin-right:7px;white-space:nowrap;}
-
+ 
   /* score breakdown tooltip */
   .ranked .rk-h .hint{color:var(--ivory-faint);font-size:.9em;letter-spacing:0;text-transform:none;}
   .fit{position:relative;}
@@ -232,7 +205,44 @@
   .bd-row.total{border-top:1px solid var(--line);margin-top:5px;padding-top:6px;}
   .bd-row.total span{color:var(--gold-bright);font-family:var(--mono);font-weight:700;}
   .bd-note{font-size:.62rem;color:var(--ivory-faint);margin-top:8px;line-height:1.45;}
-
+ 
+  /* signal check: correlation + baseline */
+  .corr-panel{margin-top:18px;border-top:1px solid var(--line);padding-top:16px;}
+  .corr-h{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .corr-heatmap{overflow-x:auto;border:1px solid var(--line-soft);border-radius:8px;background:var(--night-3);padding:12px;}
+  .corr-table{border-collapse:collapse;width:100%;min-width:520px;}
+  .corr-table th,.corr-table td{padding:8px 10px;border:1px solid rgba(236,228,210,.08);font-size:.78rem;}
+  .corr-table th{font-family:var(--mono);font-size:.65rem;color:var(--ivory-faint);text-align:center;white-space:nowrap;}
+  .corr-table td{background:rgba(236,228,210,.03);}
+  .corr-cell{display:inline-flex;align-items:center;justify-content:center;width:46px;height:28px;border-radius:6px;font-family:var(--mono);font-size:.75rem;font-weight:700;}
+  .signal{margin-top:14px;border-top:1px solid var(--line);padding-top:14px;}
+  .sig-h{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .sig-sub{font-size:.72rem;color:var(--ivory-faint);margin-bottom:8px;}
+  .crow{display:grid;grid-template-columns:1fr 92px 58px;gap:10px;align-items:center;padding:4px 0;font-size:.78rem;}
+  .crow .cn{color:var(--ivory);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .crow .cbarwrap{height:6px;background:rgba(236,228,210,.08);border-radius:3px;overflow:hidden;}
+  .crow .cbar{display:block;height:100%;background:var(--verd);border-radius:3px;}
+  .crow .cbar.neg{background:#E08A6A;}
+  .crow .cv{font-family:var(--mono);font-size:.72rem;color:var(--ivory-soft);text-align:right;}
+  .leak{font-family:var(--mono);font-size:.58rem;color:#E08A6A;border:1px solid #E08A6A;border-radius:4px;padding:0 4px;margin-left:6px;}
+  .cnote{font-size:.76rem;color:var(--ivory-faint);padding:6px 0;line-height:1.5;}
+  .runbtn{margin-top:12px;font-family:var(--body);font-size:.82rem;color:var(--night);background:var(--gold);border:none;border-radius:6px;padding:8px 15px;cursor:pointer;font-weight:600;transition:background .15s;}
+  .runbtn:hover{background:var(--gold-bright);}
+  .runbtn:disabled{opacity:.6;cursor:wait;}
+  .baseline{margin-top:14px;}
+  .bl-title{font-family:var(--display);font-weight:600;font-size:.98rem;color:var(--gold-bright);margin-bottom:10px;}
+  .bl-metrics{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:14px;}
+  .bl-m{display:flex;flex-direction:column;gap:2px;}
+  .bl-k{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ivory-faint);}
+  .bl-v{font-family:var(--display);font-weight:600;font-size:1.18rem;color:var(--verd);}
+  .bl-coef-h{font-family:var(--mono);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ivory-faint);margin-bottom:7px;}
+  .bl-coefs{margin-bottom:12px;}
+  .bl-verdict{font-size:.82rem;color:var(--ivory);line-height:1.6;background:rgba(115,185,169,.07);border-left:3px solid var(--verd);padding:9px 12px;border-radius:0 6px 6px 0;}
+ 
+  .sig-ctrls{display:flex;gap:18px;flex-wrap:wrap;margin:12px 0 2px;}
+  .sig-ctrls label{font-size:.72rem;color:var(--ivory-soft);display:flex;align-items:center;gap:6px;}
+  .sig-ctrls select{font-family:var(--body);font-size:.78rem;color:var(--ivory);background:var(--night-3);border:1px solid var(--line);border-radius:5px;padding:5px 7px;}
+ 
   @media(prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
 </head>
@@ -244,14 +254,14 @@
     <path d="M100 14 L112 100 L100 186 L88 100 Z" fill="#CBA458" fill-opacity=".25" stroke="none"/>
     <path d="M14 100 L100 112 L186 100 L100 88 Z" fill="#CBA458" fill-opacity=".15" stroke="none"/>
   </svg>
-
+ 
   <div class="crown">
     <span>PLATE <b>VII</b> · 数据分析方法选型</span>
     <span class="mid"><span class="star">✦</span> 评分引擎 · 55+ 方法 <span class="star">✦</span></span>
     <span>REV · IV</span>
   </div>
   <div class="hr-gold"></div>
-
+ 
   <header>
     <div class="brand">
       <div class="astro" aria-hidden="true"><span class="needle"></span><span class="hub"></span></div>
@@ -259,7 +269,7 @@
     </div>
     <div class="tagline">五维定位你的问题，<b>按拟合度排名</b>给出方法、指标、坑与完整流水线。</div>
   </header>
-
+ 
   <div class="panel datapanel">
     <div class="eyebrow">数据接入 · DuckDB-WASM</div>
     <div class="drop" id="drop">
@@ -268,7 +278,7 @@
       <div class="privacy">数据全程留在你浏览器本地 · 不上传任何服务器</div>
     </div>
     <div class="dstatus" id="dstatus"></div>
-      <div class="profile" id="profile" hidden>
+    <div class="profile" id="profile" hidden>
       <div class="prof-top">
         <div class="stat"><div class="k">行数</div><div class="v" id="pRows">–</div></div>
         <div class="stat"><div class="k">列数</div><div class="v" id="pCols">–</div></div>
@@ -277,18 +287,22 @@
       <div class="prof-table" id="profTable"></div>
       <div class="prof-map" id="profMap"></div>
       <div class="corr-panel" id="corrPanel" hidden>
-        <div class="corr-title">相关性矩阵 · Pearson</div>
+        <div class="corr-h">相关矩阵 · Pearson</div>
         <div class="corr-heatmap" id="corrHeatmap"></div>
       </div>
-      <div class="anom-panel" id="anomPanel" hidden>
-        <div class="anom-title">极值/异常检测 · IQR 法则</div>
-        <div class="anom-list" id="anomList"></div>
+      <div class="signal" id="signalBox">
+        <div class="sig-h">信号体检 · 特征 ↔ 目标</div>
+        <div class="corrlist" id="corrList"></div>
+        <div class="sig-ctrls">
+          <label>验证 <select id="cvSel"><option value="insample">样本内（快）</option><option value="cv5">5 折交叉验证</option></select></label>
+          <label>时间列 <select id="dateSel"><option value="__none__">无（非时序）</option></select></label>
+        </div>
+        <button class="runbtn" id="runBaseline" type="button">▷ 跑基线模型（OLS / 逻辑回归 / 时序·MMM）</button>
+        <div class="baseline" id="baselineOut"></div>
       </div>
     </div>
-
-    </div>
   </div>
-
+ 
   <div class="console">
     <div class="panel picker">
       <div class="pgroup"><div class="plabel"><span class="pfig">I</span><span class="ptitle">你的目标</span></div><div class="phint">想从数据里得到什么？</div><div class="chips" id="goal"></div></div>
@@ -298,7 +312,7 @@
       <div class="pgroup"><div class="plabel"><span class="pfig">V</span><span class="ptitle">最看重</span></div><div class="phint">取舍时优先保哪个。</div><div class="chips" id="priority"></div></div>
       <button class="reset" id="reset">↺ 重置选择</button>
     </div>
-
+ 
     <div>
       <div class="panel stagewrap">
         <div class="eyebrow">航线 · 决策路径</div>
@@ -310,13 +324,13 @@
       </div>
     </div>
   </div>
-
+ 
   <footer>
     思路可视化原型 · 评分引擎规则驱动 · 真实版接 <b>DuckDB-WASM + Polars</b> 让数据特征自动驱动排名<span class="div">✦</span><br>
     纯静态单文件 · GITHUB PAGES 可托管 · 零后端零云账单
   </footer>
 </div>
-
+ 
 <script>
 /* ===== axes ===== */
 const GOALS=[
@@ -353,7 +367,7 @@ const PRIOS=[
 ];
 const state={goal:null,shape:null,size:null,labels:null,priority:null};
 let SIGNALS=null;
-
+ 
 /* ===== method catalog =====
    M(id,name,libs,goals,shapes, interp,perf,speed,robust, small,large, needs, metric, pitfall, note)
    scores 0..3 ; needs: 'labeled'|'unlabeled'|'any' */
@@ -424,7 +438,7 @@ const CATALOG=[
   M('respopt','响应曲线 → 预算优化','cvxpy + MMM 输出',['mmm'],['tabular'],3,3,2,2,2,2,'any','增量 ROI','依赖曲线质量','把模型变成可执行预算分配'),
   M('geocal','Geo / 实验校准','GeoLift·因果方法',['mmm'],['tabular'],3,1,2,3,2,1,'any','增量 lift','需可做实验','用真实因果锚定 MMM，最关键'),
 ];
-
+ 
 /* ===== narratives per key ===== */
 const NARR={
   tabular:{stamp:'TABULAR',tag:'结构化表格 · 从可解释基线走到性能上限',
@@ -491,7 +505,7 @@ const NARR={
     pipe:[['数据','清洗+增强'],['基线','迁移学习微调'],['进阶','更大骨干 / ViT'],['评估','准确率/mAP'],['部署','量化/蒸馏加速']],
     reason:(s,t)=>`数据=图像 ⇒ 首位 <b>${t.name}</b>，直接进深度学习。${s.size==='small'?'样本少 ⇒ 迁移学习+数据增强尤其关键。':'按算力定骨干大小。'}`},
 };
-
+ 
 /* ===== scoring ===== */
 function effShape(){return state.shape || (state.goal==='ts'?'seq':'tabular');}
 function narrativeKey(){
@@ -540,7 +554,7 @@ function recommend(){
   const n=NARR[narrativeKey()]||NARR.tabular;
   return {n, ranked, top:ranked[0]};
 }
-
+ 
 /* ===== render ===== */
 function chipsHTML(arr,key){return arr.map(o=>`<button class="chip" data-key="${key}" data-id="${o.id}">${o.label}</button>`).join('');}
 [['goal',GOALS],['shape',SHAPES],['size',SIZES],['labels',LABELS],['priority',PRIOS]].forEach(([k,arr])=>{document.getElementById(k).innerHTML=chipsHTML(arr,k);});
@@ -558,7 +572,7 @@ document.getElementById('reset').addEventListener('click',()=>{
   render();
 });
 function labelOf(arr,id){return arr.find(x=>x.id===id)||null;}
-
+ 
 function bdHTML(m){
   const ps=(m.parts||[]).filter((p,idx)=>idx===0||Math.abs(p[1])>=0.05);
   return `<div class="breakdown"><div class="bd-h">评分拆解</div>${ps.map(p=>`<div class="bd-row"><span>${p[0]}</span><span class="${p[1]>=0?'pos':'neg'}">${p[1]>=0?'+':''}${p[1].toFixed(1)}</span></div>`).join('')}<div class="bd-row total"><span>原始总分</span><span>${(m.raw||0).toFixed(1)}</span></div><div class="bd-note">拟合度是组内相对拉伸到 55–99，不是概率/置信度</div></div>`;
@@ -583,10 +597,10 @@ function render(){
     const valHTML=nd.val?`<div class="nval">${nd.val}</div>${nd.meta&&!nd.dest?`<div class="nmeta">${nd.meta}</div>`:''}`:`<div class="nval empty">${nd.dest?'——':'待选'}</div>`;
     return `<div class="${cls}${conn}"><div class="ncap">${nd.cap}</div><div class="nbox">${valHTML}</div></div>`;
   }).join('');
-
+ 
   if(rec){foot.classList.remove('idle');foot.innerHTML='路径已点亮 ▸ '+rec.n.reason(state,rec.top);}
   else{foot.classList.add('idle');foot.textContent='先选「目标」就能定位；补全其余维度，排名会随之校准。';}
-
+ 
   if(!rec){recEl.innerHTML=`<div class="rec-empty"><div class="big">尚未定位</div>选择「目标」开始——罗盘会给出按拟合度排名的方法清单、评估指标与完整流水线。</div>`;return;}
   const N=rec.n;
   const __w=buildWarnings();
@@ -629,13 +643,13 @@ function syncChips(){
     document.querySelectorAll(`.chip[data-key="${k}"]`).forEach(x=>x.classList.toggle('on',x.dataset.id===state[k]));
   });
 }
-
+ 
 /* ===== data layer: SheetJS reader + in-browser JS profiler (CSV + Excel) ===== */
 let CURPROF=null, CURROWS=[], CURHEADERS=[];
 const dstatus=document.getElementById('dstatus');
 function setStatus(msg,cls){dstatus.className='dstatus'+(cls?' '+cls:'');dstatus.textContent=msg;}
 function num(x){const n=Number(x);return isFinite(n)?n:0;}
-
+ 
 function inferType(vals){
   if(vals.length===0) return 'VARCHAR';
   let allNum=true, allInt=true, anyDate=false;
@@ -650,32 +664,37 @@ function inferType(vals){
   if(anyDate) return 'DATE';
   return 'VARCHAR';
 }
+function numStats(nums){
+  const n=nums.length;
+  if(n===0) return null;
+  const sorted=[...nums].sort((a,b)=>a-b);
+  const mean=nums.reduce((a,b)=>a+b,0)/n;
+  const variance=n>1?nums.reduce((a,b)=>a+(b-mean)*(b-mean),0)/(n-1):0;
+  const std=Math.sqrt(variance);
+  const q=p=>{ if(n===1)return sorted[0]; const idx=p*(n-1),lo=Math.floor(idx),hi=Math.ceil(idx);
+    return lo===hi?sorted[lo]:sorted[lo]+(sorted[hi]-sorted[lo])*(idx-lo); };
+  return {min:sorted[0],max:sorted[n-1],mean,std,q25:q(0.25),q50:q(0.5),q75:q(0.75)};
+}
+function fmt(x){
+  if(x===null||x===undefined||!isFinite(x)) return '—';
+  const a=Math.abs(x);
+  if(a!==0&&(a<0.001||a>=1e7)) return x.toExponential(2);
+  if(Number.isInteger(x)) return x.toLocaleString();
+  return (Math.round(x*100)/100).toLocaleString(undefined,{maximumFractionDigits:2});
+}
 function profileRows(headers, rows, name){
   const cols=headers.map((h,i)=>{
     const vals=rows.map(r=>r[i]);
     const nonNull=vals.filter(v=>v!==null&&v!==undefined&&v!=='');
     const nullPct=rows.length?(1-nonNull.length/rows.length)*100:0;
     const distinct=new Set(nonNull.map(v=>v instanceof Date?v.getTime():String(v))).size;
-    const type=inferType(nonNull);
-    // numeric stats
-    let mean=null, std=null, min=null, max=null, median=null;
-    const numVals=nonNull.map(v=>{
-      if(v instanceof Date) return null;
-      const n=(typeof v==='number')?v:(typeof v==='string'&&v.trim()!==''&&!isNaN(Number(v))?Number(v):null);
-      return n;
-    }).filter(x=>x!==null && isFinite(x));
-    if(numVals.length>0){
-      const s=numVals.reduce((a,b)=>a+b,0);
-      mean=s/numVals.length;
-      const variance=numVals.reduce((a,b)=>a+Math.pow(b-mean,2),0)/(numVals.length>1?numVals.length-1:numVals.length);
-      std=Math.sqrt(variance);
-      min=Math.min(...numVals);
-      max=Math.max(...numVals);
-      const sorted=numVals.slice().sort((a,b)=>a-b);
-      const mid=Math.floor(sorted.length/2);
-      median=(sorted.length%2)?sorted[mid]:(sorted[mid-1]+sorted[mid])/2;
+    const ctype=inferType(nonNull);
+    let stats=null;
+    if(/BIGINT|DOUBLE|INT|DECIMAL|FLOAT|REAL/.test(ctype)){
+      const nums=nonNull.map(v=>Number(v)).filter(x=>isFinite(x));
+      stats=numStats(nums);
     }
-    return {column_name:String(h),column_type:type,null_percentage:nullPct,approx_unique:distinct, mean, std, min, max, median};
+    return {column_name:String(h),column_type:ctype,null_percentage:nullPct,approx_unique:distinct,count:nonNull.length,stats};
   });
   return {nRows:rows.length, cols, name};
 }
@@ -702,19 +721,64 @@ async function handleFile(file){
 function renderProfile(prof){
   document.getElementById('pRows').textContent=prof.nRows.toLocaleString();
   document.getElementById('pCols').textContent=prof.cols.length;
-  const rows=prof.cols.map(c=>{
-    const t=(c.column_type||'').toLowerCase();
-    const mean=c.mean!=null?num(c.mean).toFixed(3):'';
-    const std=c.std!=null?num(c.std).toFixed(3):'';
-    const min=c.min!=null?num(c.min):'';
-    const max=c.max!=null?num(c.max):'';
-    return `<tr><td>${c.column_name}</td><td>${t}</td><td class="num">${num(c.null_percentage).toFixed(1)}%</td><td class="num">${num(c.approx_unique).toLocaleString()}</td><td class="num">${min}</td><td class="num">${max}</td><td class="num">${mean}</td><td class="num">${std}</td></tr>`;
-  }).join('');
-  document.getElementById('profTable').innerHTML=`<table><thead><tr><th>列</th><th>类型</th><th>缺失</th><th>不同值</th><th>最小</th><th>最大</th><th>平均</th><th>Std</th></tr></thead><tbody>${rows}</tbody></table>`;
+  const head=`<tr><th class="c-name">列</th><th>类型</th><th class="r">缺失</th><th class="r">不同值</th><th class="r">均值</th><th class="r">标准差</th><th class="r">最小</th><th class="r">25%</th><th class="r">中位</th><th class="r">75%</th><th class="r">最大</th></tr>`;
+  const body=prof.cols.map(c=>{const s=c.stats;return `<tr><td class="c-name">${c.column_name}</td><td class="ty">${(c.column_type||'').toLowerCase()}</td><td class="num r">${num(c.null_percentage).toFixed(1)}%</td><td class="num r">${num(c.approx_unique).toLocaleString()}</td><td class="num r">${s?fmt(s.mean):'—'}</td><td class="num r">${s?fmt(s.std):'—'}</td><td class="num r">${s?fmt(s.min):'—'}</td><td class="num r">${s?fmt(s.q25):'—'}</td><td class="num r">${s?fmt(s.q50):'—'}</td><td class="num r">${s?fmt(s.q75):'—'}</td><td class="num r">${s?fmt(s.max):'—'}</td></tr>`;}).join('');
+  document.getElementById('profTable').innerHTML=`<table>${head}${body}</table>`;
   const sel=document.getElementById('targetSel');
   sel.innerHTML=`<option value="__none__">无（无监督）</option>`+prof.cols.map(c=>`<option value="${c.column_name}">${c.column_name}</option>`).join('');
   document.getElementById('profile').hidden=false;
+  document.getElementById('signalBox').hidden=false;
+  renderCorrelationHeatmap();
   applyProfile(prof,'__none__');
+}
+function renderCorrelationHeatmap(){
+  const data = computeCorrelationMatrix();
+  const panel = document.getElementById('corrPanel');
+  if(!data){panel.hidden=true;return;}
+  const header = `<tr><th></th>${data.names.map(n=>`<th>${escapeHTML(n)}</th>`).join('')}</tr>`;
+  const rows = data.matrix.map((row,i)=>{
+    const line = row.map(val=>{
+      const score = Number(val);
+      const bg = correlationColor(score);
+      const color = Math.abs(score) > 0.55 ? '#0A1417' : '#F5F1E8';
+      return `<td><div class="corr-cell" style="background:${bg};color:${color};">${isNaN(score)?'—':score.toFixed(2)}</div></td>`;
+    }).join('');
+    return `<tr><th>${escapeHTML(data.names[i])}</th>${line}</tr>`;
+  }).join('');
+  document.getElementById('corrHeatmap').innerHTML = `<table class="corr-table">${header}${rows}</table>`;
+  panel.hidden=false;
+}
+function computeCorrelationMatrix(){
+  if(!CURPROF) return null;
+  const numericCols = CURPROF.cols.filter(c=>c.stats && typeof c.stats.mean==='number');
+  if(numericCols.length < 2) return null;
+  const names = numericCols.map(c=>c.column_name);
+  const indices = numericCols.map(c=>colIndex(c.column_name));
+  const matrix = indices.map(i => indices.map(j => {
+    const xs = [], ys = [];
+    for(let k=0;k<CURROWS.length;k++){
+      const a = CURROWS[k][i]; const b = CURROWS[k][j];
+      const na = parseNumeric(a), nb = parseNumeric(b);
+      if(na===null||nb===null) continue;
+      xs.push(na); ys.push(nb);
+    }
+    const corr = pearson(xs, ys);
+    return isNaN(corr) ? 0 : corr;
+  }));
+  return {names,matrix};
+}
+function parseNumeric(value){
+  if(typeof value==='number') return isFinite(value) ? value : null;
+  if(typeof value==='string'){const v=value.trim(); if(v==='') return null; const n=Number(v); return isFinite(n)?n:null;}
+  return null;
+}
+function correlationColor(v){
+  const strength = Math.min(1, Math.abs(v));
+  if(v >= 0) return `rgba(115,185,169,${0.2 + 0.6 * strength})`;
+  return `rgba(224,138,106,${0.2 + 0.6 * strength})`;
+}
+function escapeHTML(str){
+  return String(str).replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));
 }
 /* class-imbalance from real rows for the chosen target */
 function computeImbalance(prof,target){
@@ -752,101 +816,21 @@ function applyProfile(prof,target){
   /* real-value signals fed into the scoring formula */
   const missingMax=Math.max(0,...prof.cols.map(c=>num(c.null_percentage)));
   const highCardCats=prof.cols.filter(c=>/VARCHAR|TEXT|STRING/.test((c.column_type||'').toUpperCase()) && num(c.approx_unique)>50).length;
-  SIGNALS={nRows:n,nCols:prof.cols.length,missingMax,pn:prof.cols.length/Math.max(n,1),highCardCats,imbalance:computeImbalance(prof,target)};
+  SIGNALS={nRows:n,nCols:prof.cols.length,missingMax,pn:prof.cols.length/Math.max(n,1),highCardCats,imbalance:computeImbalance(prof,target),leak:null};
+  let corr=null;
+  if(target&&target!=='__none__'){ corr=computeCorrelations(target); SIGNALS.leak=corr.leak; }
+  LASTCORR=corr;
   syncChips(); render();
   const sz=state.size==='small'?'小 (<1k)':state.size==='big'?'大 (>100k)':'中 (1k–100k)';
   const imbTxt=SIGNALS.imbalance?` · <b style="color:var(--gold-bright)">检测到类别不平衡</b>`:'';
   document.getElementById('profMap').innerHTML=`<span class="ico">📊</span> 已据数据自动填充 → 样本规模 <b>${sz}</b> · 标签 <b>${labelTxt}</b> · 目标 <b>${goalTxt}</b>${imbTxt}　<span style="color:var(--ivory-faint)">（评分已改用真实数据驱动；任意维度仍可手动覆盖，改"目标列"即时重算）</span>`;
-  renderCorrelationMatrix(prof);
-  renderAnomalyDetection(prof);
+  renderSignalBox(target,corr);
 }
-
-function renderCorrelationMatrix(prof){
-  // find numeric columns
-  const numCols = prof.cols.filter(c=>{
-    if(!c.mean) return false;
-    return true;
-  });
-  if(numCols.length < 2){
-    document.getElementById('corrPanel').hidden = true;
-    return;
-  }
-  // compute Pearson correlations
-  const n = prof.nRows;
-  const colIndices = CURHEADERS.map((h,i) => {
-    const col = prof.cols.find(c => c.column_name === h);
-    return col && col.mean ? i : -1;
-  }).filter(i => i >= 0);
-  const colData = colIndices.map(i => {
-    const vals = CURROWS.map(r => {
-      const v = r[i];
-      const n = (typeof v === 'number') ? v : (typeof v === 'string' && v.trim() !== '' && !isNaN(Number(v)) ? Number(v) : null);
-      return n;
-    }).filter(x => x !== null && isFinite(x));
-    return vals;
-  });
-  const colNames = colIndices.map(i => CURHEADERS[i].substring(0, 12));
-  const corrMatrix = [];
-  for(let i = 0; i < colData.length; i++){
-    const row = [];
-    for(let j = 0; j < colData.length; j++){
-      const d1 = colData[i], d2 = colData[j];
-      if(d1.length === 0 || d2.length === 0){ row.push(0); continue; }
-      const minLen = Math.min(d1.length, d2.length);
-      const v1 = d1.slice(0, minLen), v2 = d2.slice(0, minLen);
-      const m1 = v1.reduce((a,b)=>a+b,0)/v1.length, m2 = v2.reduce((a,b)=>a+b,0)/v2.length;
-      const cov = v1.reduce((a,b,k)=>a+(b-m1)*(v2[k]-m2),0)/v1.length;
-      const s1 = Math.sqrt(v1.reduce((a,b)=>a+Math.pow(b-m1,2),0)/v1.length);
-      const s2 = Math.sqrt(v2.reduce((a,b)=>a+Math.pow(b-m2,2),0)/v2.length);
-      row.push(s1>0&&s2>0 ? cov/(s1*s2) : (i===j?1:0));
-    }
-    corrMatrix.push(row);
-  }
-  // render heatmap
-  const heatmapHTML = '<table><tr><th></th>'+colNames.map(n=>`<th>${n}</th>`).join('')+'</tr>'
-    + corrMatrix.map((row,i)=>'<tr><th>'+colNames[i]+'</th>'+row.map(val=>{
-      const clr = val > 0.7 ? 'rgba(115,185,169,0.9)' : val > 0.4 ? 'rgba(115,185,169,0.6)' : val > 0 ? 'rgba(115,185,169,0.3)' : val < -0.7 ? 'rgba(224,138,106,0.9)' : val < -0.4 ? 'rgba(224,138,106,0.6)' : 'rgba(236,228,210,0.1)';
-      return `<td><div class="corr-cell" style="background:${clr}">${val.toFixed(2)}</div></td>`;
-    }).join('')+'</tr>').join('')+'</table>';
-  document.getElementById('corrHeatmap').innerHTML = heatmapHTML;
-  document.getElementById('corrPanel').hidden = false;
-}
-
-function renderAnomalyDetection(prof){
-  const anomalies = [];
-  prof.cols.forEach((col,colIdx)=>{
-    if(!col.min || !col.max || !col.mean || !col.std) return;
-    const q1Idx = Math.floor(CURROWS.length * 0.25);
-    const q3Idx = Math.floor(CURROWS.length * 0.75);
-    const sortedVals = CURROWS.map((r,rIdx)=>{
-      const v = r[CURHEADERS.indexOf(col.column_name)];
-      const n = (typeof v === 'number') ? v : (typeof v === 'string' && v.trim() !== '' && !isNaN(Number(v)) ? Number(v) : null);
-      return {val:n, rIdx};
-    }).filter(x=>x.val!==null&&isFinite(x.val)).sort((a,b)=>a.val-b.val);
-    if(sortedVals.length < 4) return;
-    const q1 = sortedVals[q1Idx].val, q3 = sortedVals[q3Idx].val, iqr = q3 - q1;
-    const lower = q1 - 1.5 * iqr, upper = q3 + 1.5 * iqr;
-    sortedVals.forEach(({val,rIdx})=>{
-      if(val < lower || val > upper){
-        anomalies.push({col:col.column_name.substring(0,16), row:rIdx+1, val:val.toFixed(2), type: val<lower?'low':'high'});
-      }
-    });
-  });
-  if(anomalies.length===0){
-    document.getElementById('anomPanel').hidden = true;
-    return;
-  }
-  const anomHTML = anomalies.slice(0,15).map(a=>`<div class="anom-item"><span class="badge ${a.type==='low'?'out':'out'}">${a.type==='low'?'↓':'↑'}</span><span class="desc">行 #${a.row} 列 <b>${a.col}</b> = ${a.val} ${a.type==='low'?'(低于下界)':'(高于上界)'}</span></div>`).join('');
-  document.getElementById('anomList').innerHTML = anomHTML + (anomalies.length>15?`<div style="padding:6px 0;color:var(--ivory-faint);font-size:.7rem;">…还有 ${anomalies.length-15} 处异常（已隐藏）</div>`:'');
-  document.getElementById('anomPanel').hidden = false;
-}
-
-/* SQL panel was removed per user request. */
-
 /* warnings derived from real data signals */
 function buildWarnings(){
   if(!SIGNALS) return [];
   const w=[], S=SIGNALS;
+  if(S.leak)w.push(['疑似数据泄漏',`列 <b>${S.leak.name}</b> 与目标相关 <b>${Math.abs(S.leak.value).toFixed(2)}</b>，几乎完美——确认它不是"穿越特征"(用了未来信息)或目标的同义/派生列，否则模型会虚高、上线就崩。`]);
   if(S.imbalance){const im=S.imbalance;w.push(['类别不平衡',`少数类仅 <b>${im.minorityPct.toFixed(1)}%</b>（${im.classes} 类，最高:最低 ≈ ${im.ratio.toFixed(1)}:1）。用 PR-AUC / macro-F1 而非 accuracy；模型加 class_weight，或重采样(SMOTE)+调阈值。`]);}
   if(S.pn>=0.5)w.push(['维度逼近样本数',`列/行 ≈ <b>${S.pn.toFixed(2)}</b>（${S.nCols} 列 / ${S.nRows} 行），极易过拟合。优先正则线性(Lasso/Ridge)、特征选择或降维，慎用复杂模型。`]);
   if(S.missingMax>30)w.push(['缺失严重',`有列缺失率达 <b>${S.missingMax.toFixed(0)}%</b>。考虑删列或"缺失指示+插补"；LightGBM 等树模型能原生处理缺失。`]);
@@ -854,7 +838,262 @@ function buildWarnings(){
   if(S.highCardCats>0)w.push(['高基数类别',`有 <b>${S.highCardCats}</b> 个高基数类别列(>50 取值)。用目标编码 / CatBoost / 嵌入，别直接 one-hot。`]);
   return w;
 }
-
+ 
+/* ===== signal check: correlation ranking + in-browser baseline ===== */
+let LASTCORR=null;
+function colIndex(name){return CURHEADERS.indexOf(name);}
+function numericFeatureCols(target){return CURPROF.cols.filter(c=>c.stats && c.column_name!==target);}
+function targetKindOf(target){
+  const c=CURPROF.cols.find(x=>x.column_name===target)||{};
+  const isNum=/BIGINT|DOUBLE|INT|DECIMAL|FLOAT|REAL/.test((c.column_type||'').toUpperCase());
+  return (isNum && num(c.approx_unique)>20)?'reg':'clf';
+}
+function pearson(xs,ys){
+  const n=xs.length; if(n<3) return NaN;
+  let mx=0,my=0; for(let i=0;i<n;i++){mx+=xs[i];my+=ys[i];} mx/=n;my/=n;
+  let sxy=0,sx=0,sy=0;
+  for(let i=0;i<n;i++){const dx=xs[i]-mx,dy=ys[i]-my;sxy+=dx*dy;sx+=dx*dx;sy+=dy*dy;}
+  if(sx===0||sy===0) return 0;
+  return sxy/Math.sqrt(sx*sy);
+}
+function etaRatio(fvals,labels){ // numeric feature vs categorical target -> correlation ratio (0..1)
+  const n=fvals.length; if(n<3) return NaN;
+  let grand=0; for(const v of fvals)grand+=v; grand/=n;
+  const groups={};
+  for(let i=0;i<n;i++){(groups[labels[i]]=groups[labels[i]]||[]).push(fvals[i]);}
+  let ssb=0,sst=0;
+  for(const v of fvals)sst+=(v-grand)*(v-grand);
+  for(const k in groups){const g=groups[k];const m=g.reduce((a,b)=>a+b,0)/g.length;ssb+=g.length*(m-grand)*(m-grand);}
+  return sst===0?0:Math.sqrt(ssb/sst);
+}
+function computeCorrelations(target){
+  const ti=colIndex(target), kind=targetKindOf(target);
+  const feats=numericFeatureCols(target), list=[];
+  let classes=null;
+  if(kind==='clf'){const set=new Set();for(const r of CURROWS){const v=r[ti];if(v!==null&&v!==undefined&&v!=='')set.add(String(v));}classes=[...set];}
+  for(const fc of feats){
+    const fi=colIndex(fc.column_name), xs=[],ys=[],labs=[];
+    for(const r of CURROWS){
+      const fv=r[fi],tv=r[ti];
+      if(fv===null||fv===undefined||fv===''||tv===null||tv===undefined||tv==='')continue;
+      const fn=Number(fv); if(!isFinite(fn))continue;
+      if(kind==='reg'){const tn=Number(tv);if(!isFinite(tn))continue;xs.push(fn);ys.push(tn);}
+      else {xs.push(fn);labs.push(String(tv));}
+    }
+    const val=kind==='reg'?pearson(xs,ys):etaRatio(xs,labs);
+    if(isNaN(val))continue;
+    list.push({name:fc.column_name,value:val,abs:Math.abs(val),kind});
+  }
+  list.sort((a,b)=>b.abs-a.abs);
+  const lk=list.find(x=>x.abs>=0.97);
+  return {list,kind,classes,leak:lk?{name:lk.name,value:lk.value}:null};
+}
+function renderSignalBox(target,corr){
+  const box=document.getElementById('signalBox');
+  const btn=document.getElementById('runBaseline');
+  box.hidden=false;
+  document.getElementById('baselineOut').innerHTML='';
+  if(btn) btn.disabled = true;
+  if(!target||target==='__none__'||!corr){
+    document.getElementById('corrList').innerHTML='<div class="cnote">请选择目标列后，即可查看目标与其他特征的相关性，并运行基线模型。</div>';
+    const dsel=document.getElementById('dateSel');
+    if(dsel){
+      const dcols=dateLikeCols().filter(c=>c.column_name!==target);
+      dsel.innerHTML='<option value="__none__">无（非时序）</option>'+dcols.map(c=>`<option value="${c.column_name}">${c.column_name}</option>`).join('');
+    }
+    return;
+  }
+  if(btn) btn.disabled = false;
+  const kindTxt=corr.kind==='reg'?'Pearson 相关 (−1~1)':'相关比 η (0~1，无方向)';
+  const rows=corr.list.slice(0,12).map(c=>{
+    const pct=Math.min(100,Math.round(c.abs*100));
+    const sign=c.kind==='reg'?(c.value>=0?'+':'−'):'';
+    const leak=c.abs>=0.97?` <span class="leak">⚠ 疑似泄漏</span>`:'';
+    return `<div class="crow"><span class="cn">${c.name}${leak}</span><span class="cbarwrap"><span class="cbar" style="width:${pct}%"></span></span><span class="cv">${sign}${c.abs.toFixed(2)}</span></div>`;
+  }).join('')||'<div class="cnote">没有可用的数值特征做相关性分析。</div>';
+  document.getElementById('corrList').innerHTML=`<div class="sig-sub">${kindTxt} · 与目标「${target}」，按强度排序</div>${rows}`;
+  const dsel=document.getElementById('dateSel');
+  if(dsel){const dcols=dateLikeCols().filter(c=>c.column_name!==target);dsel.innerHTML='<option value="__none__">无（非时序）</option>'+dcols.map(c=>`<option value="${c.column_name}">${c.column_name}</option>`).join('');}
+}
+function solve(A,b){ // Gaussian elimination with partial pivot
+  const n=A.length, M=A.map((r,i)=>[...r,b[i]]);
+  for(let col=0;col<n;col++){
+    let piv=col; for(let r=col+1;r<n;r++) if(Math.abs(M[r][col])>Math.abs(M[piv][col])) piv=r;
+    if(Math.abs(M[piv][col])<1e-12) return null;
+    [M[col],M[piv]]=[M[piv],M[col]];
+    for(let r=0;r<n;r++){ if(r===col)continue; const f=M[r][col]/M[col][col]; for(let c=col;c<=n;c++) M[r][c]-=f*M[col][c]; }
+  }
+  return M.map((r,i)=>r[n]/r[i]);
+}
+function metricsHTML(title,metrics,coefs,coefLabel,verdict){
+  const top=Math.abs(coefs[0]?.c||1)||1;
+  return `<div class="bl-title">${title}</div>
+   <div class="bl-metrics">${metrics.map(m=>`<div class="bl-m"><div class="bl-k">${m[0]}</div><div class="bl-v">${m[1]}</div></div>`).join('')}</div>
+   <div class="bl-coef-h">${coefLabel}</div>
+   <div class="bl-coefs">${coefs.map(c=>{const w=Math.min(100,Math.abs(c.c)/top*100);return `<div class="crow"><span class="cn">${c.f}</span><span class="cbarwrap"><span class="cbar${c.c>=0?'':' neg'}" style="width:${w}%"></span></span><span class="cv">${c.c>=0?'+':''}${c.c.toFixed(3)}</span></div>`;}).join('')}</div>
+   <div class="bl-verdict">${verdict}</div>`;
+}
+/* ---- date helpers ---- */
+function toDate(v){
+  if(v instanceof Date) return isNaN(v)?null:v;
+  if(typeof v==='string'){const s=v.trim();if(/[-\/年月:]/.test(s)){const d=new Date(s);return isNaN(d)?null:d;}}
+  return null;
+}
+function dateLikeCols(){
+  return CURPROF.cols.filter(c=>{
+    const i=colIndex(c.column_name);let ok=0,tot=0;
+    for(let k=0;k<CURROWS.length&&tot<50;k++){const v=CURROWS[k][i];if(v===null||v===''||v===undefined)continue;tot++;if(toDate(v))ok++;}
+    return tot>0&&ok/tot>=0.8;
+  });
+}
+/* ---- fit / predict helpers ---- */
+function stdFit(X){const n=X.length,p=X[0].length,mean=Array(p).fill(0),std=Array(p).fill(0);
+  for(const r of X)for(let j=0;j<p;j++)mean[j]+=r[j];for(let j=0;j<p;j++)mean[j]/=n;
+  for(const r of X)for(let j=0;j<p;j++)std[j]+=(r[j]-mean[j])**2;for(let j=0;j<p;j++)std[j]=Math.sqrt(std[j]/Math.max(n-1,1))||1;
+  return {mean,std};}
+function stdApply(X,m){return X.map(r=>r.map((v,j)=>(v-m.mean[j])/(m.std[j]||1)));}
+function olsBeta(Z,y,fixedMul){
+  const n=Z.length,p=Z[0].length,p1=p+1,D=Z.map(r=>[1,...r]);
+  const XtX=Array.from({length:p1},()=>Array(p1).fill(0)),Xty=Array(p1).fill(0);
+  for(let i=0;i<n;i++){const row=D[i];for(let a=0;a<p1;a++){Xty[a]+=row[a]*y[i];for(let b=0;b<p1;b++)XtX[a][b]+=row[a]*row[b];}}
+  const muls=fixedMul?[fixedMul,1e-1,1]:[1e-3,1e-2,1e-1,1];
+  for(const mul of muls){const A=XtX.map(r=>r.slice());const lam=n*mul;for(let a=1;a<p1;a++)A[a][a]+=lam;const sol=solve(A,Xty);if(sol&&sol.every(v=>isFinite(v)))return sol;}
+  return null;
+}
+function olsPred(beta,z){let s=beta[0];for(let j=0;j<z.length;j++)s+=beta[j+1]*z[j];return s;}
+function logiFit(Z,y){
+  const n=Z.length,p=Z[0].length,p1=p+1,D=Z.map(r=>[1,...r]);let w=Array(p1).fill(0);const lr=0.3,iters=400,lam=1e-2;
+  for(let it=0;it<iters;it++){const g=Array(p1).fill(0);
+    for(let i=0;i<n;i++){const row=D[i];let z=0;for(let a=0;a<p1;a++)z+=row[a]*w[a];const pr=1/(1+Math.exp(-z));const e=pr-y[i];for(let a=0;a<p1;a++)g[a]+=e*row[a];}
+    for(let a=0;a<p1;a++){let gg=g[a]/n;if(a>0)gg+=lam*w[a];w[a]-=lr*gg;}}
+  return w;
+}
+function logiPred(w,z){let s=w[0];for(let j=0;j<z.length;j++)s+=w[j+1]*z[j];return 1/(1+Math.exp(-s));}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function r2rmse(y,pred){let ss=0,sst=0,my=0;const n=y.length;for(const v of y)my+=v;my/=n;for(let i=0;i<n;i++){ss+=(y[i]-pred[i])**2;sst+=(y[i]-my)**2;}return {r2:sst>0?1-ss/sst:0,rmse:Math.sqrt(ss/n)};}
+function accLL(Z,y,w){const n=y.length;let pos=0;for(const v of y)pos+=v;const base=Math.max(pos,n-pos)/n,rate=pos/n||1e-9,ll0=-(pos*Math.log(rate)+(n-pos)*Math.log(1-rate));let correct=0,ll=0;for(let i=0;i<n;i++){const pr=logiPred(w,Z[i]);if((pr>0.5?1:0)===y[i])correct++;ll+=-(y[i]*Math.log(pr+1e-9)+(1-y[i])*Math.log(1-pr+1e-9));}return {acc:correct/n,base,mcf:ll0>0?1-ll/ll0:0};}
+function cvOLS(X,y,k){const idx=shuffle([...Array(X.length).keys()]);const pred=Array(X.length).fill(0);for(let f=0;f<k;f++){const te=idx.filter((_,i)=>i%k===f),tr=idx.filter((_,i)=>i%k!==f);const m=stdFit(tr.map(i=>X[i]));const beta=olsBeta(stdApply(tr.map(i=>X[i]),m),tr.map(i=>y[i]));if(!beta)continue;for(const i of te){const z=X[i].map((v,j)=>(v-m.mean[j])/(m.std[j]||1));pred[i]=olsPred(beta,z);}}return r2rmse(y,pred);}
+function cvLogi(X,y,k){const idx=shuffle([...Array(X.length).keys()]);let correct=0,tot=0;for(let f=0;f<k;f++){const te=idx.filter((_,i)=>i%k===f),tr=idx.filter((_,i)=>i%k!==f);const m=stdFit(tr.map(i=>X[i]));const w=logiFit(stdApply(tr.map(i=>X[i]),m),tr.map(i=>y[i]));for(const i of te){const z=X[i].map((v,j)=>(v-m.mean[j])/(m.std[j]||1));if((logiPred(w,z)>0.5?1:0)===y[i])correct++;tot++;}}return {acc:tot?correct/tot:0};}
+ 
+function runBaseline(){
+  const out=document.getElementById('baselineOut');
+  const target=document.getElementById('targetSel').value;
+  if(!LASTCORR||!target||target==='__none__'){return;}
+  const dateCol=(document.getElementById('dateSel')||{}).value;
+  const cvMode=(document.getElementById('cvSel')||{}).value||'insample';
+  const kind=LASTCORR.kind;
+  if(dateCol&&dateCol!=='__none__'){
+    if(kind!=='reg'){out.innerHTML='<div class="cnote">时序 / MMM 体检需要<b>数值型目标</b>（如销售额 / KPI）。当前目标是分类。</div>';return;}
+    runTimeSeries(target,dateCol,out);return;
+  }
+  const ti=colIndex(target);
+  const feats=numericFeatureCols(target).map(c=>c.column_name);
+  if(feats.length===0){out.innerHTML='<div class="cnote">没有数值特征可用于基线模型。</div>';return;}
+  const fis=feats.map(colIndex);
+  let X=[],Y=[];
+  for(const r of CURROWS){let ok=true;const row=[];for(const fi of fis){const v=Number(r[fi]);if(!isFinite(v)){ok=false;break;}row.push(v);}const tv=r[ti];if(tv===null||tv===undefined||tv==='')ok=false;if(!ok)continue;if(kind==='reg'){const tn=Number(tv);if(!isFinite(tn))continue;Y.push(tn);}else Y.push(String(tv));X.push(row);}
+  let n=X.length;
+  if(n<feats.length+5){out.innerHTML='<div class="cnote">有效样本太少（'+n+' 行）。</div>';return;}
+  let note='';
+  if(n>50000){const idx=shuffle([...Array(n).keys()]).slice(0,50000);X=idx.map(i=>X[i]);Y=idx.map(i=>Y[i]);n=50000;note=' · 抽样5万行';}
+  if(kind==='clf'&&LASTCORR.classes.length!==2){out.innerHTML='<div class="cnote">一键基线分类目前仅支持二分类（当前 '+LASTCORR.classes.length+' 类）。相关性排序仍可参考。</div>';return;}
+  const m=stdFit(X),Z=stdApply(X,m);
+  if(kind==='reg'){
+    const beta=olsBeta(Z,Y);if(!beta){out.innerHTML='<div class="cnote">特征高度共线，无法稳定拟合。</div>';return;}
+    const ins=r2rmse(Y,Z.map(z=>olsPred(beta,z)));
+    let metrics,r2use,vlab;
+    if(cvMode==='cv5'){const cv=cvOLS(X,Y,5);metrics=[['R² (5折CV)',cv.r2.toFixed(3)],['RMSE (CV)',fmt(cv.rmse)],['R² 样本内',ins.r2.toFixed(3)],['样本',n.toLocaleString()]];r2use=cv.r2;vlab='5 折交叉验证（接近真实泛化）';}
+    else{metrics=[['R² 样本内',ins.r2.toFixed(3)],['RMSE',fmt(ins.rmse)],['样本',n.toLocaleString()],['特征',feats.length]];r2use=ins.r2;vlab='样本内（偏乐观，可切到 5 折 CV）';}
+    const coefs=feats.map((f,j)=>({f,c:beta[j+1]})).sort((a,b)=>Math.abs(b.c)-Math.abs(a.c)).slice(0,6);
+    const v=(r2use>=0.6?'信号很强——线性模型已解释大部分方差，先用可解释模型。':r2use>=0.2?'有中等线性信号——梯度提升等非线性模型可能再榨出一些。':'线性信号弱——需更多特征/特征工程，或关系非线性。')+'　['+vlab+']';
+    out.innerHTML=metricsHTML('回归基线 · OLS'+note,metrics,coefs,'标准化系数（每 +1 标准差对目标，绝对值=重要度）',v);
+  }else{
+    const cls=[...LASTCORR.classes].sort(),y01=Y.map(l=>l===cls[1]?1:0);
+    const w=logiFit(Z,y01);const ins=accLL(Z,y01,w);
+    let metrics,accUse,vlab;
+    if(cvMode==='cv5'){const cv=cvLogi(X,y01,5);metrics=[['准确率 (5折CV)',(cv.acc*100).toFixed(1)+'%'],['多数类基线',(ins.base*100).toFixed(1)+'%'],['准确率 样本内',(ins.acc*100).toFixed(1)+'%'],['样本',n.toLocaleString()]];accUse=cv.acc;vlab='5 折交叉验证';}
+    else{metrics=[['准确率 样本内',(ins.acc*100).toFixed(1)+'%'],['多数类基线',(ins.base*100).toFixed(1)+'%'],['McFadden R²',ins.mcf.toFixed(3)],['样本',n.toLocaleString()]];accUse=ins.acc;vlab='样本内';}
+    const lift=accUse-ins.base;
+    const coefs=feats.map((f,j)=>({f,c:w[j+1]})).sort((a,b)=>Math.abs(b.c)-Math.abs(a.c)).slice(0,6);
+    const v=(lift>=0.15?'相对"全猜多数类"明显提升——特征有判别力。':lift>=0.03?'比多数类略好——有一点信号。':'几乎等于多数类——线性信号弱，需更好特征或非线性模型。')+'　['+vlab+']';
+    out.innerHTML=metricsHTML('二分类基线 · 逻辑回归（'+cls[1]+'=1）'+note,metrics,coefs,'对数几率系数（每 +1 标准差，正=更偏 '+cls[1]+'）',v);
+  }
+}
+function runTimeSeries(target,dateCol,out){
+  const ti=colIndex(target),di=colIndex(dateCol);
+  let recs=[];
+  for(const r of CURROWS){const d=toDate(r[di]);const y=Number(r[ti]);if(!d||!isFinite(y))continue;recs.push({t:d.getTime(),mo:d.getMonth(),y,row:r});}
+  recs.sort((a,b)=>a.t-b.t);
+  const n=recs.length;
+  if(n<24){out.innerHTML='<div class="cnote">时序点太少（'+n+'），至少需要约 24 个时间点。</div>';return;}
+  /* ---- classify columns & build features ---- */
+  const theta=0.5;
+  const feats=[];
+  feats.push({name:'趋势',type:'trend',vals:recs.map((_,i)=>i/(n-1||1))});
+  for(let mm=1;mm<=11;mm++) feats.push({name:'月'+(mm+1),type:'season',vals:recs.map(r=>r.mo===mm?1:0)});
+  for(const c of numericFeatureCols(target).filter(c=>c.column_name!==dateCol)){
+    const fi=colIndex(c.column_name);
+    const raw=recs.map(rec=>{const v=Number(rec.row[fi]);return isFinite(v)?v:0;});
+    if(/price|价格|单价|售价/i.test(c.column_name)){
+      feats.push({name:c.column_name,type:'price',vals:raw.map(v=>Math.log(v>0?v:0.01))});
+    } else if(num(c.approx_unique)<=2){
+      feats.push({name:c.column_name,type:'promo',vals:raw});
+    } else {
+      let prev=0; feats.push({name:c.column_name+'(adstock)',type:'media',vals:raw.map(v=>{prev=Math.max(0,v)+theta*prev;return Math.log1p(prev);})});
+    }
+  }
+  const X=recs.map((_,i)=>feats.map(f=>f.vals[i]));
+  const Y=recs.map(r=>r.y);
+  const mAll=stdFit(X),betaAll=olsBeta(stdApply(X,mAll),Y,0.05);
+  if(!betaAll){out.innerHTML='<div class="cnote">无法稳定拟合（特征共线或数据异常）。</div>';return;}
+  const insR=r2rmse(Y,stdApply(X,mAll).map(z=>olsPred(betaAll,z)));
+  /* forward holdout */
+  let oosR2=NaN,mapev=NaN;const cut=Math.max(12,Math.floor(n*0.8));
+  if(n-cut>=3){const m=stdFit(X.slice(0,cut)),beta=olsBeta(stdApply(X.slice(0,cut),m),Y.slice(0,cut),0.05);
+    if(beta){const Yte=Y.slice(cut),predTe=stdApply(X.slice(cut),m).map(z=>olsPred(beta,z));
+      let ss=0,sst=0,my=0,mape=0,cnt=0;for(const v of Yte)my+=v;my/=Yte.length;
+      for(let i=0;i<Yte.length;i++){ss+=(Yte[i]-predTe[i])**2;sst+=(Yte[i]-my)**2;if(Math.abs(Yte[i])>1e-9){mape+=Math.abs((Yte[i]-predTe[i])/Yte[i]);cnt++;}}
+      oosR2=sst>0?1-ss/sst:0;mapev=cnt?mape/cnt*100:NaN;}}
+  /* standardized coefs (direction + relative importance), skip season dummies */
+  const coefs=feats.map((f,j)=>({f:f.name,type:f.type,c:betaAll[j+1]||0})).filter(x=>x.type!=='season').sort((a,b)=>Math.abs(b.c)-Math.abs(a.c)).slice(0,7);
+  /* ---- price elasticity (log-log: log sales ~ trend+season+log price) ---- */
+  const priceFeats=feats.filter(f=>f.type==='price');
+  let elastList=[];
+  if(priceFeats.length && Y.every(v=>v>0)){
+    const elF=feats.filter(f=>f.type==='trend'||f.type==='season'||f.type==='price');
+    const EX=recs.map((_,i)=>elF.map(f=>f.vals[i])), elY=Y.map(v=>Math.log(v));
+    const em=stdFit(EX),eb=olsBeta(stdApply(EX,em),elY,0.02);
+    if(eb) priceFeats.forEach(pf=>{const idx=elF.indexOf(pf);elastList.push({name:pf.name,e:(eb[idx+1]||0)/(em.std[idx]||1)});});
+  }
+  /* ---- approximate contribution decomposition (raw-scale) ---- */
+  const rawCoef=feats.map((f,j)=>(betaAll[j+1]||0)/(mAll.std[j]||1));
+  const rawIntc=betaAll[0]-feats.reduce((s,f,j)=>s+(betaAll[j+1]||0)*mAll.mean[j]/(mAll.std[j]||1),0);
+  const meanF=feats.map(f=>f.vals.reduce((a,b)=>a+b,0)/n);
+  const ref=feats.map((f,j)=>(f.type==='price'||f.type==='season')?meanF[j]:0); // 价格/季节以均值为基准，其余以0(无投放)为基准
+  let baseTotal=n*rawIntc; feats.forEach((f,j)=>{baseTotal+=rawCoef[j]*ref[j]*n;});
+  const groups={'基线(截距+均价+均季)':baseTotal};
+  feats.forEach((f,j)=>{const contrib=rawCoef[j]*(f.vals.reduce((a,b)=>a+b,0)-ref[j]*n);const key=f.type==='season'?'季节(偏离)':f.type==='trend'?'趋势':f.type==='price'?f.name+'(偏离均价)':f.name;groups[key]=(groups[key]||0)+contrib;});
+  const totP=Object.values(groups).reduce((a,b)=>a+b,0)||1;
+  const decomp=Object.entries(groups).map(([k,vv])=>({k,share:vv/totP*100})).sort((a,b)=>Math.abs(b.share)-Math.abs(a.share));
+  /* ---- collinearity among drivers ---- */
+  const drv=feats.filter(f=>f.type==='media'||f.type==='price'||f.type==='promo');
+  const pairs=[];
+  for(let i=0;i<drv.length;i++)for(let k=i+1;k<drv.length;k++){const r=pearson(drv[i].vals,drv[k].vals);if(Math.abs(r)>=0.8)pairs.push([drv[i].name,drv[k].name,r]);}
+  /* ---- render ---- */
+  const oosTxt=isFinite(oosR2)?(oosR2<-1?'<−1 外推不稳':oosR2.toFixed(2)):'—';
+  const metrics=[['拟合 R²(样本内)',insR.r2.toFixed(3)],['外推 R²(后20%)',oosTxt],['外推 MAPE',isFinite(mapev)?mapev.toFixed(1)+'%':'—']];
+  metrics.push(elastList.length?['价格弹性',elastList[0].e.toFixed(2)]:['时间点',n.toLocaleString()]);
+  const v=(insR.r2>=0.6?'历史结构清晰（拟合 R²='+insR.r2.toFixed(2)+'）——趋势/季节/渠道能解释大部分目标，值得上正式 MMM / Prophet。':insR.r2>=0.2?'有一定结构（拟合 R²='+insR.r2.toFixed(2)+'）——可加更多渠道/滞后项或换专业模型。':'结构较弱（拟合 R²='+insR.r2.toFixed(2)+'）——检查数据频率/缺失，或波动来源。');
+  const dmax=Math.max(...decomp.map(d=>Math.abs(d.share)),1);
+  const decompHTML=`<div class="bl-coef-h" style="margin-top:4px">近似贡献分解 · 各成分占预测的 %（可正负，合计≈100%）</div><div class="bl-coefs">${decomp.map(d=>{const w=Math.min(100,Math.abs(d.share)/dmax*100);return `<div class="crow"><span class="cn">${d.k}</span><span class="cbarwrap"><span class="cbar${d.share>=0?'':' neg'}" style="width:${w}%"></span></span><span class="cv">${d.share>=0?'+':''}${d.share.toFixed(1)}%</span></div>`;}).join('')}</div>`;
+  const elastHTML=elastList.length?`<div class="cnote" style="margin-top:6px">价格弹性（log-log，控制趋势/季节）：${elastList.map(x=>`<b>${x.name}</b> ≈ ${x.e.toFixed(2)}（价格 +1% → 销量 ${x.e>=0?'+':''}${x.e.toFixed(2)}%）`).join('；')}。弹性应为负才符合常理；接近 0 或为正多半是被其它变量干扰或共线。</div>`:'';
+  const collHTML=pairs.length?`<div class="cnote" style="border-left:3px solid #E08A6A;background:rgba(224,138,106,.08);padding:9px 12px;border-radius:0 6px 6px 0;margin-top:8px">⚠ 共线性：${pairs.map(p=>`<b>${p[0]} ↔ ${p[1]}</b>(r=${p[2].toFixed(2)})`).join('、')} 高度相关——会互相抢 credit、系数不稳，贡献分解里这几项别太当真。`+'</div>':'';
+  const caveat=`<div class="cnote" style="margin-top:8px">说明：上面的<b>标准化系数</b>只是把量纲拉到可比、用来看"方向 + 谁影响大"，它<b>不是 ROI / 弹性</b>；而且标准化只解决量纲，<b>若两个渠道共线，系数照样会不稳、互相抢 credit</b>，别把大小当成真实贡献。<b>贡献分解</b>是更接近 MMM 的另一种读法（系数×变换后取值），但同样受共线性影响。正式建模 + 实验校准请用 Robyn / PyMC-Marketing / Meridian。</div>`;
+  out.innerHTML=metricsHTML('时序 / MMM 思路体检 · adstock+饱和+趋势+季节+价格弹性 → OLS',metrics,coefs,'标准化系数（方向 + 相对重要度；非 ROI/弹性）',v)
+    +decompHTML+elastHTML+collHTML+caveat
+    +'<div class="cnote" style="margin-top:8px;color:var(--ivory-faint)">⚠ 浏览器内简化近似（固定 adstock θ=0.5、对数饱和、月度季节、OLS），价格按 log 处理估弹性、促销按 0/1、其余数值列按媒体做 adstock。正式建模请用专业 MMM 工具。</div>';
+}
+ 
 /* wiring */
 const drop=document.getElementById('drop'),fileInput=document.getElementById('fileInput');
 document.getElementById('browse').addEventListener('click',e=>{e.stopPropagation();fileInput.click();});
@@ -864,8 +1103,10 @@ fileInput.addEventListener('change',()=>handleFile(fileInput.files[0]));
 ['dragleave'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
 drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('over');const f=e.dataTransfer.files[0];if(f)handleFile(f);});
 document.getElementById('targetSel').addEventListener('change',e=>{if(CURPROF)applyProfile(CURPROF,e.target.value);});
-
+document.getElementById('runBaseline').addEventListener('click',function(){this.disabled=true;this.textContent='⏳ 计算中…';setTimeout(()=>{try{runBaseline();}catch(err){console.error(err);document.getElementById('baselineOut').innerHTML='<div class="cnote">基线计算出错：'+(err&&err.message||err)+'</div>';}this.disabled=false;this.textContent='▷ 跑基线模型（OLS / 逻辑回归 / 时序·MMM）';},20);});
+ 
 render();
 </script>
 </body>
 </html>
+ 
