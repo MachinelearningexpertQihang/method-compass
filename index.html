@@ -924,13 +924,44 @@ function solve(A,b){ // Gaussian elimination with partial pivot
   }
   return M.map((r,i)=>r[n]/r[i]);
 }
+function gauss2Inv(A){
+  const n=A.length, M=A.map((r,i)=>[...r,...Array(n).fill(0).map((_,j)=>i===j?1:0)]);
+  for(let col=0;col<n;col++){
+    let piv=col; for(let r=col+1;r<n;r++) if(Math.abs(M[r][col])>Math.abs(M[piv][col])) piv=r;
+    if(Math.abs(M[piv][col])<1e-12) return null;
+    [M[col],M[piv]]=[M[piv],M[col]];
+    const diag=M[col][col];
+    for(let c=0;c<2*n;c++) M[col][c]/=diag;
+    for(let r=0;r<n;r++){if(r===col)continue;const f=M[r][col];for(let c=0;c<2*n;c++) M[r][c]-=f*M[col][c];}
+  }
+  return M.map(r=>r.slice(n));
+}
 function metricsHTML(title,metrics,coefs,coefLabel,verdict){
   const top=Math.abs(coefs[0]?.c||1)||1;
+  const coefRows=coefs.map(c=>{
+    const w=Math.min(100,Math.abs(c.c)/top*100);
+    const tStat=c.t!==undefined ? c.t.toFixed(2) : '—';
+    const pVal=c.p!==undefined ? (c.p<0.001 ? '<.001' : c.p.toFixed(3)) : '—';
+    return `<div class="crow"><span class="cn">${c.f}</span><span class="cbarwrap"><span class="cbar${c.c>=0?'':' neg'}" style="width:${w}%"></span></span><span class="cv">${c.c>=0?'+':''}${c.c.toFixed(3)}</span><span style="font-size:.7rem;color:var(--ivory-faint);margin-left:8px;">t=${tStat} p=${pVal}</span></div>`;
+  }).join('');
   return `<div class="bl-title">${title}</div>
    <div class="bl-metrics">${metrics.map(m=>`<div class="bl-m"><div class="bl-k">${m[0]}</div><div class="bl-v">${m[1]}</div></div>`).join('')}</div>
    <div class="bl-coef-h">${coefLabel}</div>
-   <div class="bl-coefs">${coefs.map(c=>{const w=Math.min(100,Math.abs(c.c)/top*100);return `<div class="crow"><span class="cn">${c.f}</span><span class="cbarwrap"><span class="cbar${c.c>=0?'':' neg'}" style="width:${w}%"></span></span><span class="cv">${c.c>=0?'+':''}${c.c.toFixed(3)}</span></div>`;}).join('')}</div>
+   <div class="bl-coefs">${coefRows}</div>
    <div class="bl-verdict">${verdict}</div>`;
+}
+function tProb(t,df){
+  if(df<=0) return NaN;
+  const absT=Math.abs(t);
+  const x=df/(df+absT*absT);
+  const beta=0.5*(1+Math.log(df/(2*Math.PI))-Math.log(absT));
+  let p=0.5;
+  for(let i=1;i<20;i++){
+    const term=Math.exp(beta+i*Math.log(x)/(2*i));
+    p+= term;
+    if(term<1e-15) break;
+  }
+  return Math.min(1,p);
 }
 /* ---- date helpers ---- */
 function toDate(v){
@@ -1005,8 +1036,26 @@ function runBaseline(){
     if(cvMode==='cv5'){const cv=cvOLS(X,Y,5);metrics=[['R² (5折CV)',cv.r2.toFixed(3)],['RMSE (CV)',fmt(cv.rmse)],['R² 样本内',ins.r2.toFixed(3)],['样本',n.toLocaleString()]];r2use=cv.r2;vlab='5 折交叉验证（接近真实泛化）';}
     else{metrics=[['R² 样本内',ins.r2.toFixed(3)],['RMSE',fmt(ins.rmse)],['样本',n.toLocaleString()],['特征',feats.length]];r2use=ins.r2;vlab='样本内（偏乐观，可切到 5 折 CV）';}
     const coefs=feats.map((f,j)=>({f,c:beta[j+1]})).sort((a,b)=>Math.abs(b.c)-Math.abs(a.c)).slice(0,6);
+    const pred=Z.map(z=>olsPred(beta,z));
+    let rss=0;
+    for(let i=0;i<Y.length;i++){const e=Y[i]-pred[i];rss+=e*e;}
+    const mse=rss/(Math.max(1,n-feats.length-1));
+    const XtX=Array(feats.length+1).fill(0).map(()=>Array(feats.length+1).fill(0));
+    for(let i=0;i<n;i++){
+      XtX[0][0]+=1;
+      for(let j=0;j<feats.length;j++){XtX[0][j+1]+=Z[i][j];XtX[j+1][0]+=Z[i][j];}
+      for(let j=0;j<feats.length;j++){for(let k=0;k<feats.length;k++){XtX[j+1][k+1]+=Z[i][j]*Z[i][k];}}
+    }
+    const XtXinv=gauss2Inv(XtX);
+    const coefsWithStats=coefs.map(c=>{
+      const idx=feats.indexOf(c.f);
+      const se=XtXinv&&XtXinv[idx+1]?Math.sqrt(mse*XtXinv[idx+1][idx+1]):NaN;
+      const t=isFinite(se)?c.c/se:NaN;
+      const p=isFinite(t)?tProb(t,n-feats.length-1):NaN;
+      return {f:c.f,c:c.c,t,p};
+    });
     const v=(r2use>=0.6?'信号很强——线性模型已解释大部分方差，先用可解释模型。':r2use>=0.2?'有中等线性信号——梯度提升等非线性模型可能再榨出一些。':'线性信号弱——需更多特征/特征工程，或关系非线性。')+'　['+vlab+']';
-    out.innerHTML=metricsHTML('回归基线 · OLS'+note,metrics,coefs,'标准化系数（每 +1 标准差对目标，绝对值=重要度）',v);
+    out.innerHTML=metricsHTML('回归基线 · OLS'+note,metrics,coefsWithStats,'标准化系数（每 +1 标准差对目标；t stat 和 p-value 基于样本内残差）',v);
   }else{
     const cls=[...LASTCORR.classes].sort(),y01=Y.map(l=>l===cls[1]?1:0);
     const w=logiFit(Z,y01);const ins=accLL(Z,y01,w);
@@ -1015,8 +1064,9 @@ function runBaseline(){
     else{metrics=[['准确率 样本内',(ins.acc*100).toFixed(1)+'%'],['多数类基线',(ins.base*100).toFixed(1)+'%'],['McFadden R²',ins.mcf.toFixed(3)],['样本',n.toLocaleString()]];accUse=ins.acc;vlab='样本内';}
     const lift=accUse-ins.base;
     const coefs=feats.map((f,j)=>({f,c:w[j+1]})).sort((a,b)=>Math.abs(b.c)-Math.abs(a.c)).slice(0,6);
+    const coefsWithStats=coefs.map(c=>({...c,t:NaN,p:NaN}));
     const v=(lift>=0.15?'相对"全猜多数类"明显提升——特征有判别力。':lift>=0.03?'比多数类略好——有一点信号。':'几乎等于多数类——线性信号弱，需更好特征或非线性模型。')+'　['+vlab+']';
-    out.innerHTML=metricsHTML('二分类基线 · 逻辑回归（'+cls[1]+'=1）'+note,metrics,coefs,'对数几率系数（每 +1 标准差，正=更偏 '+cls[1]+'）',v);
+    out.innerHTML=metricsHTML('二分类基线 · 逻辑回归（'+cls[1]+'=1）'+note,metrics,coefsWithStats,'对数几率系数（每 +1 标准差，正=更偏 '+cls[1]+'；逻辑回归 t/p 值需用 Hessian 计算，此处示 —）',v);
   }
 }
 function runTimeSeries(target,dateCol,out){
