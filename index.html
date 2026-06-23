@@ -840,7 +840,6 @@ function renderAnomalyDetection(prof){
   document.getElementById('anomList').innerHTML = anomHTML + (anomalies.length>15?`<div style="padding:6px 0;color:var(--ivory-faint);font-size:.7rem;">…还有 ${anomalies.length-15} 处异常（已隐藏）</div>`:'');
   document.getElementById('anomPanel').hidden = false;
 }
-}
 
 /* SQL panel was removed per user request. */
 
