@@ -891,9 +891,7 @@ function computeCorrelations(target){
 }
 function renderSignalBox(target,corr){
   const box=document.getElementById('signalBox');
-  const btn=document.getElementById('runBaseline');
   box.hidden=false;
-  btn.disabled=false;
   document.getElementById('baselineOut').innerHTML='';
   if(!target||target==='__none__'||!corr){
     document.getElementById('corrList').innerHTML='<div class="cnote">请选择目标列后，即可查看目标与其他特征的相关性，并运行基线模型。</div>';
@@ -1105,7 +1103,20 @@ fileInput.addEventListener('change',()=>handleFile(fileInput.files[0]));
 ['dragleave'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
 drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('over');const f=e.dataTransfer.files[0];if(f)handleFile(f);});
 document.getElementById('targetSel').addEventListener('change',e=>{if(CURPROF)applyProfile(CURPROF,e.target.value);});
-document.getElementById('runBaseline').addEventListener('click',function(){this.disabled=true;this.textContent='⏳ 计算中…';setTimeout(()=>{try{runBaseline();}catch(err){console.error(err);document.getElementById('baselineOut').innerHTML='<div class="cnote">基线计算出错：'+(err&&err.message||err)+'</div>';}this.disabled=false;this.textContent='▷ 跑基线模型（OLS / 逻辑回归 / 时序·MMM）';},20);});
+document.getElementById('runBaseline').addEventListener('click',function(){
+  const origText=this.textContent;
+  this.textContent='⏳ 计算中…';
+  const self=this;
+  setTimeout(()=>{
+    try{
+      runBaseline();
+    }catch(err){
+      console.error(err);
+      document.getElementById('baselineOut').innerHTML='<div class="cnote">基线计算出错：'+(err&&err.message||err)+'</div>';
+    }
+    self.textContent=origText;
+  },20);
+});
  
 render();
 </script>
