@@ -236,7 +236,7 @@
       <div class="privacy">数据全程留在你浏览器本地 · 不上传任何服务器</div>
     </div>
     <div class="dstatus" id="dstatus"></div>
-    <div class="profile" id="profile" hidden>
+      <div class="profile" id="profile" hidden>
       <div class="prof-top">
         <div class="stat"><div class="k">行数</div><div class="v" id="pRows">–</div></div>
         <div class="stat"><div class="k">列数</div><div class="v" id="pCols">–</div></div>
@@ -244,6 +244,22 @@
       </div>
       <div class="prof-table" id="profTable"></div>
       <div class="prof-map" id="profMap"></div>
+    </div>
+
+    <!-- SQL panel: loadable in-browser SQL engine (sql.js/SQLite-WASM by default) -->
+    <div class="sqlpanel" id="sqlpanel">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+        <div class="eyebrow">交互式 SQL · 本地执行</div>
+        <button id="loadSql" type="button">加载 SQL 引擎 (SQLite WASM)</button>
+        <button id="loadDuckdb" type="button">(可选) 加载 DuckDB-WASM</button>
+      </div>
+      <textarea id="sqlBox" placeholder="示例：SELECT count(*) FROM data;" style="width:100%;min-height:80px;font-family:var(--mono);padding:8px;border-radius:6px;border:1px solid var(--line);background:var(--night-3);color:var(--ivory);"></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button id="runSql" type="button">运行 SQL</button>
+        <button id="clearSql" type="button">清空</button>
+      </div>
+      <div id="sqlResult" style="margin-top:12px;overflow:auto;max-height:260px;border:1px solid var(--line-soft);border-radius:6px;padding:8px;background:var(--night-4);color:var(--ivory);"></div>
+    </div>
     </div>
   </div>
 
@@ -614,7 +630,26 @@ function profileRows(headers, rows, name){
     const nonNull=vals.filter(v=>v!==null&&v!==undefined&&v!=='');
     const nullPct=rows.length?(1-nonNull.length/rows.length)*100:0;
     const distinct=new Set(nonNull.map(v=>v instanceof Date?v.getTime():String(v))).size;
-    return {column_name:String(h),column_type:inferType(nonNull),null_percentage:nullPct,approx_unique:distinct};
+    const type=inferType(nonNull);
+    // numeric stats
+    let mean=null, std=null, min=null, max=null, median=null;
+    const numVals=nonNull.map(v=>{
+      if(v instanceof Date) return null;
+      const n=(typeof v==='number')?v:(typeof v==='string'&&v.trim()!==''&&!isNaN(Number(v))?Number(v):null);
+      return n;
+    }).filter(x=>x!==null && isFinite(x));
+    if(numVals.length>0){
+      const s=numVals.reduce((a,b)=>a+b,0);
+      mean=s/numVals.length;
+      const variance=numVals.reduce((a,b)=>a+Math.pow(b-mean,2),0)/(numVals.length>1?numVals.length-1:numVals.length);
+      std=Math.sqrt(variance);
+      min=Math.min(...numVals);
+      max=Math.max(...numVals);
+      const sorted=numVals.slice().sort((a,b)=>a-b);
+      const mid=Math.floor(sorted.length/2);
+      median=(sorted.length%2)?sorted[mid]:(sorted[mid-1]+sorted[mid])/2;
+    }
+    return {column_name:String(h),column_type:type,null_percentage:nullPct,approx_unique:distinct, mean, std, min, max, median};
   });
   return {nRows:rows.length, cols, name};
 }
@@ -641,8 +676,15 @@ async function handleFile(file){
 function renderProfile(prof){
   document.getElementById('pRows').textContent=prof.nRows.toLocaleString();
   document.getElementById('pCols').textContent=prof.cols.length;
-  const rows=prof.cols.map(c=>`<tr><td>${c.column_name}</td><td>${(c.column_type||'').toLowerCase()}</td><td class="num">${num(c.null_percentage).toFixed(1)}%</td><td class="num">${num(c.approx_unique).toLocaleString()}</td></tr>`).join('');
-  document.getElementById('profTable').innerHTML=`<table><thead><tr><th>列</th><th>类型</th><th>缺失</th><th>不同值</th></tr></thead><tbody>${rows}</tbody></table>`;
+  const rows=prof.cols.map(c=>{
+    const t=(c.column_type||'').toLowerCase();
+    const mean=c.mean!=null?num(c.mean).toFixed(3):'';
+    const std=c.std!=null?num(c.std).toFixed(3):'';
+    const min=c.min!=null?num(c.min):'';
+    const max=c.max!=null?num(c.max):'';
+    return `<tr><td>${c.column_name}</td><td>${t}</td><td class="num">${num(c.null_percentage).toFixed(1)}%</td><td class="num">${num(c.approx_unique).toLocaleString()}</td><td class="num">${min}</td><td class="num">${max}</td><td class="num">${mean}</td><td class="num">${std}</td></tr>`;
+  }).join('');
+  document.getElementById('profTable').innerHTML=`<table><thead><tr><th>列</th><th>类型</th><th>缺失</th><th>不同值</th><th>最小</th><th>最大</th><th>平均</th><th>Std</th></tr></thead><tbody>${rows}</tbody></table>`;
   const sel=document.getElementById('targetSel');
   sel.innerHTML=`<option value="__none__">无（无监督）</option>`+prof.cols.map(c=>`<option value="${c.column_name}">${c.column_name}</option>`).join('');
   document.getElementById('profile').hidden=false;
@@ -690,6 +732,83 @@ function applyProfile(prof,target){
   const imbTxt=SIGNALS.imbalance?` · <b style="color:var(--gold-bright)">检测到类别不平衡</b>`:'';
   document.getElementById('profMap').innerHTML=`<span class="ico">📊</span> 已据数据自动填充 → 样本规模 <b>${sz}</b> · 标签 <b>${labelTxt}</b> · 目标 <b>${goalTxt}</b>${imbTxt}　<span style="color:var(--ivory-faint)">（评分已改用真实数据驱动；任意维度仍可手动覆盖，改"目标列"即时重算）</span>`;
 }
+
+/* ===== SQL engine (sqlite sql.js fallback) ===== */
+let SQLDB=null, SQLWASM=null;
+function loadScript(url){
+  return new Promise((res,rej)=>{
+    const s=document.createElement('script');s.src=url;s.onload=()=>res();s.onerror=err=>rej(err);document.head.appendChild(s);
+  });
+}
+async function loadSqlJs(){
+  if(window.initSqlJs) return await window.initSqlJs({locateFile:file=>file});
+  // dynamic load sql.js (CDN)
+  const url='https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js';
+  await loadScript(url);
+  if(!window.initSqlJs) throw new Error('sql.js 未暴露 initSqlJs');
+  return await window.initSqlJs({locateFile:file=>`https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}`});
+}
+async function ensureSql(){
+  if(SQLDB) return SQLDB;
+  try{
+    SQLWASM = await loadSqlJs();
+    SQLDB = new SQLWASM.Database();
+    return SQLDB;
+  }catch(e){
+    setStatus('✗ 无法加载 SQL 引擎：'+e.message,'err');
+    throw e;
+  }
+}
+function buildTableInSql(dbName='data'){
+  // drop and create table from CURHEADERS/CURROWS
+  if(!SQLDB) return;
+  try{
+    SQLDB.run(`DROP TABLE IF EXISTS ${dbName};`);
+  }catch(e){}
+  const cols=CURHEADERS.map(h=>`'${h.replace(/'/g,"''")}' TEXT`).join(',');
+  SQLDB.run(`CREATE TABLE ${dbName} (${cols});`);
+  const insertSQL = `INSERT INTO ${dbName} VALUES (${CURHEADERS.map(()=>'?').join(',')});`;
+  const stmt = SQLDB.prepare(insertSQL);
+  for(const r of CURROWS){
+    const vals = CURHEADERS.map((_,i)=>{
+      const v = r[i];
+      if(v instanceof Date) return v.toISOString();
+      if(v===null||v===undefined) return null;
+      return String(v);
+    });
+    stmt.run(vals);
+  }
+  stmt.free();
+}
+function renderSqlResult(res){
+  const out=document.getElementById('sqlResult');
+  if(!res || !res.length){ out.innerHTML='<div style="color:var(--ivory-faint)">无结果</div>'; return; }
+  // res is array of result objects from SQL.js
+  const html = res.map(r=>{
+    if(r.columns && r.values){
+      const head = '<tr>'+r.columns.map(c=>`<th>${c}</th>`).join('')+'</tr>';
+      const body = r.values.map(row=>'<tr>'+row.map(c=>`<td>${c==null? '':String(c)}</td>`).join('')+'</tr>').join('');
+      return `<table style="width:100%;border-collapse:collapse;margin-bottom:8px;"><thead>${head}</thead><tbody>${body}</tbody></table>`;
+    }
+    return `<pre>${JSON.stringify(r)}</pre>`;
+  }).join('');
+  out.innerHTML=html;
+}
+async function runSqlQuery(){
+  const q=document.getElementById('sqlBox').value.trim();
+  if(!q){ setStatus('请输入 SQL 后再运行。','err'); return; }
+  try{
+    await ensureSql();
+    buildTableInSql('data');
+    const res = SQLDB.exec(q);
+    renderSqlResult(res);
+    setStatus('✓ SQL 执行完毕（在浏览器内）','ok');
+  }catch(e){
+    setStatus('✗ SQL 执行失败：'+e.message,'err');
+    document.getElementById('sqlResult').textContent = e.message;
+  }
+}
+
 /* warnings derived from real data signals */
 function buildWarnings(){
   if(!SIGNALS) return [];
@@ -713,6 +832,15 @@ drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('over'
 document.getElementById('targetSel').addEventListener('change',e=>{if(CURPROF)applyProfile(CURPROF,e.target.value);});
 
 render();
+
+// SQL panel wiring
+document.getElementById('loadSql').addEventListener('click',async ()=>{
+  setStatus('正在加载 SQLite WASM 引擎（sql.js）…');
+  try{ await ensureSql(); setStatus('✓ SQL 引擎已加载（SQLite WASM）','ok'); }catch(e){ console.error(e); }
+});
+document.getElementById('runSql').addEventListener('click',async ()=>{ await runSqlQuery(); });
+document.getElementById('clearSql').addEventListener('click',()=>{document.getElementById('sqlBox').value='';document.getElementById('sqlResult').innerHTML='';});
+document.getElementById('loadDuckdb').addEventListener('click',()=>{ setStatus('DuckDB-WASM 支持尚未自动加载；请手动添加 DuckDB-WASM 脚本或联系开发者以启用 DuckDB。','err'); });
 </script>
 </body>
 </html>
