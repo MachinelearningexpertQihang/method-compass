@@ -34,7 +34,7 @@
   .crown b{color:var(--gold);}
   .hr-gold{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4;margin-bottom:30px;}
 
-  header{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;margin-bottom:34px;position:relative;}
+  header{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:center;margin-bottom:34px;position:relative;}
   .brand{display:flex;align-items:center;gap:18px;}
   .astro{width:60px;height:60px;flex:none;position:relative;display:grid;place-items:center;border-radius:50%;border:1px solid var(--gold);background:radial-gradient(circle at 38% 32%, rgba(230,200,121,.18), transparent 60%);box-shadow:0 0 24px rgba(203,164,88,.18),inset 0 0 14px rgba(203,164,88,.10);}
   .astro::before{content:"";position:absolute;inset:6px;border-radius:50%;border:1px solid var(--line);}
@@ -153,6 +153,26 @@
   footer{margin-top:34px;font-family:var(--mono);font-size:.66rem;color:var(--ivory-faint);text-align:center;line-height:2;letter-spacing:.06em;}
   footer b{color:var(--gold);}
   footer .div{color:var(--verd);margin:0 6px;}
+
+  /* Correlation matrix heatmap */
+  .corr-panel{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;}
+  .corr-title{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .corr-heatmap{overflow-x:auto;border:1px solid var(--line-soft);border-radius:6px;background:var(--night-3);}
+  .corr-heatmap table{border-collapse:collapse;font-size:.7rem;}
+  .corr-heatmap th,.corr-heatmap td{padding:4px 6px;text-align:center;color:var(--ivory-soft);}
+  .corr-heatmap th{background:var(--night-4);font-family:var(--mono);color:var(--gold-bright);border:1px solid var(--line-soft);max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .corr-heatmap td{border:1px solid var(--line-soft);}
+  .corr-cell{display:inline-flex;align-items:center;justify-content:center;width:35px;height:28px;border-radius:3px;font-size:.58rem;font-weight:600;color:#000;}
+
+  /* Anomaly detection report */
+  .anom-panel{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;}
+  .anom-title{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .anom-list{font-size:.76rem;color:var(--ivory);line-height:1.6;max-height:200px;overflow-y:auto;}
+  .anom-item{padding:6px 0;border-bottom:1px solid var(--line-soft);display:flex;gap:12px;align-items:flex-start;}
+  .anom-item:last-child{border-bottom:none;}
+  .anom-item .badge{flex:none;padding:2px 6px;background:var(--gold);color:var(--night);font-family:var(--mono);font-size:.56rem;border-radius:3px;font-weight:600;}
+  .anom-item .badge.out{background:#E08A6A;}
+  .anom-item .desc{flex:1;color:var(--ivory-soft);}
   /* ---- data layer (DuckDB) ---- */
   .datapanel{padding:18px 18px;margin-bottom:18px;display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start;}
   .drop{border:1.5px dashed var(--line);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:all .12s;background:rgba(236,228,210,.02);width:100%;}
@@ -256,6 +276,14 @@
       </div>
       <div class="prof-table" id="profTable"></div>
       <div class="prof-map" id="profMap"></div>
+      <div class="corr-panel" id="corrPanel" hidden>
+        <div class="corr-title">相关性矩阵 · Pearson</div>
+        <div class="corr-heatmap" id="corrHeatmap"></div>
+      </div>
+      <div class="anom-panel" id="anomPanel" hidden>
+        <div class="anom-title">极值/异常检测 · IQR 法则</div>
+        <div class="anom-list" id="anomList"></div>
+      </div>
     </div>
 
     </div>
@@ -729,6 +757,89 @@ function applyProfile(prof,target){
   const sz=state.size==='small'?'小 (<1k)':state.size==='big'?'大 (>100k)':'中 (1k–100k)';
   const imbTxt=SIGNALS.imbalance?` · <b style="color:var(--gold-bright)">检测到类别不平衡</b>`:'';
   document.getElementById('profMap').innerHTML=`<span class="ico">📊</span> 已据数据自动填充 → 样本规模 <b>${sz}</b> · 标签 <b>${labelTxt}</b> · 目标 <b>${goalTxt}</b>${imbTxt}　<span style="color:var(--ivory-faint)">（评分已改用真实数据驱动；任意维度仍可手动覆盖，改"目标列"即时重算）</span>`;
+  renderCorrelationMatrix(prof);
+  renderAnomalyDetection(prof);
+}
+
+function renderCorrelationMatrix(prof){
+  // find numeric columns
+  const numCols = prof.cols.filter(c=>{
+    if(!c.mean) return false;
+    return true;
+  });
+  if(numCols.length < 2){
+    document.getElementById('corrPanel').hidden = true;
+    return;
+  }
+  // compute Pearson correlations
+  const n = prof.nRows;
+  const colIndices = CURHEADERS.map((h,i) => {
+    const col = prof.cols.find(c => c.column_name === h);
+    return col && col.mean ? i : -1;
+  }).filter(i => i >= 0);
+  const colData = colIndices.map(i => {
+    const vals = CURROWS.map(r => {
+      const v = r[i];
+      const n = (typeof v === 'number') ? v : (typeof v === 'string' && v.trim() !== '' && !isNaN(Number(v)) ? Number(v) : null);
+      return n;
+    }).filter(x => x !== null && isFinite(x));
+    return vals;
+  });
+  const colNames = colIndices.map(i => CURHEADERS[i].substring(0, 12));
+  const corrMatrix = [];
+  for(let i = 0; i < colData.length; i++){
+    const row = [];
+    for(let j = 0; j < colData.length; j++){
+      const d1 = colData[i], d2 = colData[j];
+      if(d1.length === 0 || d2.length === 0){ row.push(0); continue; }
+      const minLen = Math.min(d1.length, d2.length);
+      const v1 = d1.slice(0, minLen), v2 = d2.slice(0, minLen);
+      const m1 = v1.reduce((a,b)=>a+b,0)/v1.length, m2 = v2.reduce((a,b)=>a+b,0)/v2.length;
+      const cov = v1.reduce((a,b,k)=>a+(b-m1)*(v2[k]-m2),0)/v1.length;
+      const s1 = Math.sqrt(v1.reduce((a,b)=>a+Math.pow(b-m1,2),0)/v1.length);
+      const s2 = Math.sqrt(v2.reduce((a,b)=>a+Math.pow(b-m2,2),0)/v2.length);
+      row.push(s1>0&&s2>0 ? cov/(s1*s2) : (i===j?1:0));
+    }
+    corrMatrix.push(row);
+  }
+  // render heatmap
+  const heatmapHTML = '<table><tr><th></th>'+colNames.map(n=>`<th>${n}</th>`).join('')+'</tr>'
+    + corrMatrix.map((row,i)=>'<tr><th>'+colNames[i]+'</th>'+row.map(val=>{
+      const clr = val > 0.7 ? 'rgba(115,185,169,0.9)' : val > 0.4 ? 'rgba(115,185,169,0.6)' : val > 0 ? 'rgba(115,185,169,0.3)' : val < -0.7 ? 'rgba(224,138,106,0.9)' : val < -0.4 ? 'rgba(224,138,106,0.6)' : 'rgba(236,228,210,0.1)';
+      return `<td><div class="corr-cell" style="background:${clr}">${val.toFixed(2)}</div></td>`;
+    }).join('')+'</tr>').join('')+'</table>';
+  document.getElementById('corrHeatmap').innerHTML = heatmapHTML;
+  document.getElementById('corrPanel').hidden = false;
+}
+
+function renderAnomalyDetection(prof){
+  const anomalies = [];
+  prof.cols.forEach((col,colIdx)=>{
+    if(!col.min || !col.max || !col.mean || !col.std) return;
+    const q1Idx = Math.floor(CURROWS.length * 0.25);
+    const q3Idx = Math.floor(CURROWS.length * 0.75);
+    const sortedVals = CURROWS.map((r,rIdx)=>{
+      const v = r[CURHEADERS.indexOf(col.column_name)];
+      const n = (typeof v === 'number') ? v : (typeof v === 'string' && v.trim() !== '' && !isNaN(Number(v)) ? Number(v) : null);
+      return {val:n, rIdx};
+    }).filter(x=>x.val!==null&&isFinite(x.val)).sort((a,b)=>a.val-b.val);
+    if(sortedVals.length < 4) return;
+    const q1 = sortedVals[q1Idx].val, q3 = sortedVals[q3Idx].val, iqr = q3 - q1;
+    const lower = q1 - 1.5 * iqr, upper = q3 + 1.5 * iqr;
+    sortedVals.forEach(({val,rIdx})=>{
+      if(val < lower || val > upper){
+        anomalies.push({col:col.column_name.substring(0,16), row:rIdx+1, val:val.toFixed(2), type: val<lower?'low':'high'});
+      }
+    });
+  });
+  if(anomalies.length===0){
+    document.getElementById('anomPanel').hidden = true;
+    return;
+  }
+  const anomHTML = anomalies.slice(0,15).map(a=>`<div class="anom-item"><span class="badge ${a.type==='low'?'out':'out'}">${a.type==='low'?'↓':'↑'}</span><span class="desc">行 #${a.row} 列 <b>${a.col}</b> = ${a.val} ${a.type==='low'?'(低于下界)':'(高于上界)'}</span></div>`).join('');
+  document.getElementById('anomList').innerHTML = anomHTML + (anomalies.length>15?`<div style="padding:6px 0;color:var(--ivory-faint);font-size:.7rem;">…还有 ${anomalies.length-15} 处异常（已隐藏）</div>`:'');
+  document.getElementById('anomPanel').hidden = false;
+}
 }
 
 /* SQL panel was removed per user request. */
