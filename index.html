@@ -728,6 +728,7 @@ function renderProfile(prof){
   sel.innerHTML=`<option value="__none__">无（无监督）</option>`+prof.cols.map(c=>`<option value="${c.column_name}">${c.column_name}</option>`).join('');
   document.getElementById('profile').hidden=false;
   document.getElementById('signalBox').hidden=false;
+  document.getElementById('runBaseline').disabled=false;
   renderCorrelationHeatmap();
   applyProfile(prof,'__none__');
 }
@@ -892,8 +893,8 @@ function renderSignalBox(target,corr){
   const box=document.getElementById('signalBox');
   const btn=document.getElementById('runBaseline');
   box.hidden=false;
+  btn.disabled=false;
   document.getElementById('baselineOut').innerHTML='';
-  if(btn) btn.disabled = true;
   if(!target||target==='__none__'||!corr){
     document.getElementById('corrList').innerHTML='<div class="cnote">请选择目标列后，即可查看目标与其他特征的相关性，并运行基线模型。</div>';
     const dsel=document.getElementById('dateSel');
@@ -903,7 +904,7 @@ function renderSignalBox(target,corr){
     }
     return;
   }
-  if(btn) btn.disabled = false;
+  
   const kindTxt=corr.kind==='reg'?'Pearson 相关 (−1~1)':'相关比 η (0~1，无方向)';
   const rows=corr.list.slice(0,12).map(c=>{
     const pct=Math.min(100,Math.round(c.abs*100));
@@ -978,7 +979,8 @@ function cvLogi(X,y,k){const idx=shuffle([...Array(X.length).keys()]);let correc
 function runBaseline(){
   const out=document.getElementById('baselineOut');
   const target=document.getElementById('targetSel').value;
-  if(!LASTCORR||!target||target==='__none__'){return;}
+  if(!target||target==='__none__'){ out.innerHTML='<div class="cnote">请先在上方选择目标列。</div>'; return; }
+  if(!LASTCORR){ out.innerHTML='<div class="cnote">相关性尚未计算或无可用数值特征，无法运行基线。</div>'; return; }
   const dateCol=(document.getElementById('dateSel')||{}).value;
   const cvMode=(document.getElementById('cvSel')||{}).value||'insample';
   const kind=LASTCORR.kind;
